@@ -10,12 +10,20 @@ export async function onRequestPost(context) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      model: "llama3-70b-8192",
-      messages: body.messages
+      model: body.model || "llama-3.3-70b-versatile",
+      messages: body.messages,
+      stream: body.stream ?? true,
+      temperature: body.temperature ?? 0.7
     })
   });
 
-  return new Response(await response.text(), {
-    headers: { "Content-Type": "application/json" }
+  // Pipe the stream directly — preserves SSE chunks for real-time token delivery
+  return new Response(response.body, {
+    status: response.status,
+    headers: {
+      "Content-Type": response.headers.get("Content-Type") || "text/event-stream",
+      "Cache-Control": "no-cache",
+      "Access-Control-Allow-Origin": "*"
+    }
   });
 }
