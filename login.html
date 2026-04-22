@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
-<title>Binaris — Sign in</title>
+<title>Binaris — Konekte</title>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 
 <!-- In-app browser detection for login page -->
@@ -24,9 +24,9 @@
   document.addEventListener('DOMContentLoaded', function(){
     var b = document.createElement('div');
     b.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;font-family:system-ui,sans-serif';
-    b.innerHTML = '<div style="font-size:1.1rem;font-weight:700;margin-bottom:10px">Open in your browser</div>'
-      + '<div style="font-size:.84rem;color:rgba(255,255,255,.5);line-height:1.7;max-width:280px;margin-bottom:24px">Sign-in doesn't work inside Facebook, Instagram, or other app browsers. Please open this page in Safari or Chrome.</div>'
-      + '<div style="font-size:.75rem;color:rgba(255,255,255,.35)">Tap ··· → Open in browser</div>';
+    b.innerHTML = '<div style="font-size:1.1rem;font-weight:700;margin-bottom:10px">Ouvri nan navigatè ou</div>'
+      + '<div style="font-size:.84rem;color:rgba(255,255,255,.5);line-height:1.7;max-width:280px;margin-bottom:24px">Koneksyon pa travay nan't work inside Facebook, Instagram, or other app browsers. Please open this page in Safari or Chrome.</div>'
+      + '<div style="font-size:.75rem;color:rgba(255,255,255,.35)">Tape ··· → Ouvri nan navigatè</div>';
     document.body.appendChild(b);
   });
 })();
@@ -347,6 +347,21 @@ input{-webkit-user-select:text;user-select:text}
 .dev-desktop .divider{margin:4px 0 14px}
 .dev-desktop .div-txt{font-size:.58rem}
 .dev-desktop .terms{font-size:.58rem}
+
+#translate-btn{
+  position:fixed;bottom:28px;right:18px;z-index:900;
+  display:flex;align-items:center;gap:7px;
+  padding:9px 14px;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.22);border-radius:9999px;
+  color:rgba(255,255,255,.9);font-family:"Geist Mono","JetBrains Mono",monospace;
+  font-size:.68rem;font-weight:500;letter-spacing:.07em;cursor:pointer;
+  box-shadow:0 4px 20px rgba(0,0,0,.45);
+  transition:background .15s,transform .12s;
+  -webkit-user-select:none;user-select:none;
+}
+#translate-btn:hover{background:rgba(0,0,0,.7);transform:translateY(-1px)}
+#translate-btn:active{transform:scale(.97)}
 </style>
 </head>
 <body>
@@ -385,26 +400,26 @@ input{-webkit-user-select:text;user-select:text}
       <div class="orb-logo"><img src="round-icon.png" alt="Binaris" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><div class="orb-logo-fallback"></div></div>
     </div>
     <div class="wordmark">Binaris</div>
-    <div class="tagline">Build anything<br>with intelligence</div>
+    <div class="tagline">Bati nenpòt bagay<br>avèk entèlijans</div>
     <div class="features">
       <div class="feat">
         <div class="feat-ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1.5L3.5 9H8L6.5 14.5L12.5 7H8L9.5 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
-        <div class="feat-body"><span class="feat-txt">Instant</span><span class="feat-label">Lightning-fast AI responses</span></div>
+        <div class="feat-body"><span class="feat-txt">Rapid</span><span class="feat-label">Repons AI rapid kòm eklè</span></div>
       </div>
       <div class="feat">
         <div class="feat-ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4V8.5C2 11.9 4.7 14.8 8 15.5C11.3 14.8 14 11.9 14 8.5V4L8 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.5 8.5L7.5 10.5L11 6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="feat-body"><span class="feat-txt">Secure</span><span class="feat-label">Your data, your control</span></div>
+        <div class="feat-body"><span class="feat-txt">Sekirize</span><span class="feat-label">Done ou, kontwòl ou</span></div>
       </div>
       <div class="feat">
         <div class="feat-ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5C6.3 3.8 5.5 5.9 5.5 8S6.3 12.2 8 14.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5C9.7 3.8 10.5 5.9 10.5 8S9.7 12.2 8 14.5" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 8H14.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2.2 5H13.8M2.2 11H13.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></div>
-        <div class="feat-body"><span class="feat-txt">Multilingual</span><span class="feat-label">24 languages supported</span></div>
+        <div class="feat-body"><span class="feat-txt">Plizyè Lang</span><span class="feat-label">24 lang sipòte</span></div>
       </div>
       <div class="feat">
         <div class="feat-ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8H3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M4 5V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M7 2.5V13.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M10 4.5V11.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M13 6.5V9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M16 8H14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="feat-body"><span class="feat-txt">Voice AI</span><span class="feat-label">Talk naturally, get answers</span></div>
+        <div class="feat-body"><span class="feat-txt">Vwa AI</span><span class="feat-label">Pale natirèlman, jwenn repons</span></div>
       </div>
     </div>
-    <div class="byline">by <strong>Marc-Arthur Samuel Dalus</strong></div>
+    <div class="byline">pa <strong>Marc-Arthur Samuel Dalus</strong></div>
   </div>
 
   <!-- CARD ──────────────────────────────────────────── -->
@@ -420,14 +435,14 @@ input{-webkit-user-select:text;user-select:text}
 
     <!-- Feature chips (mobile + tablet) -->
     <div class="features">
-      <div class="feat"><div class="feat-ico"><svg viewBox="0 0 16 16" fill="none"><path d="M9.5 1.5L3.5 9H8L6.5 14.5L12.5 7H8L9.5 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg></div><span class="feat-txt">Instant</span></div>
-      <div class="feat"><div class="feat-ico"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4V8.5C2 11.9 4.7 14.8 8 15.5C11.3 14.8 14 11.9 14 8.5V4L8 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.5 8.5L7.5 10.5L11 6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="feat-txt">Secure</span></div>
+      <div class="feat"><div class="feat-ico"><svg viewBox="0 0 16 16" fill="none"><path d="M9.5 1.5L3.5 9H8L6.5 14.5L12.5 7H8L9.5 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg></div><span class="feat-txt">Rapid</span></div>
+      <div class="feat"><div class="feat-ico"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5L2 4V8.5C2 11.9 4.7 14.8 8 15.5C11.3 14.8 14 11.9 14 8.5V4L8 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.5 8.5L7.5 10.5L11 6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="feat-txt">Sekirize</span></div>
       <div class="feat"><div class="feat-ico"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5C6.3 3.8 5.5 5.9 5.5 8S6.3 12.2 8 14.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5C9.7 3.8 10.5 5.9 10.5 8S9.7 12.2 8 14.5" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 8H14.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div><span class="feat-txt">24 Lang</span></div>
       <div class="feat"><div class="feat-ico"><svg viewBox="0 0 16 16" fill="none"><path d="M1 8H3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M4 5V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M7 2.5V13.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M10 4.5V11.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M13 6.5V9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div><span class="feat-txt">Voice</span></div>
     </div>
 
     <!-- Desktop label -->
-    <div class="card-signin-label">Sign in to continue</div>
+    <div class="card-signin-label">Konekte pou kontinye</div>
 
     <!-- ── AUTH TABS ─────────────────────────────────── -->
     <div class="auth-tabs">
@@ -450,7 +465,7 @@ input{-webkit-user-select:text;user-select:text}
           <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
           <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
         </svg>
-        <span class="btn-text">Continue with Google</span>
+        <span class="btn-text">Kontinye ak Google</span>
         <div class="btn-spinner"></div>
       </button>
     </div>
@@ -462,27 +477,27 @@ input{-webkit-user-select:text;user-select:text}
       <div id="email-signin">
         <div style="display:flex;flex-direction:column;gap:10px;width:100%">
           <div class="field">
-            <div class="field-label">Email</div>
-            <input type="email" id="si-email" placeholder="you@example.com" autocomplete="email" oninput="clearFieldErr('si-email')"/>
+            <div class="field-label">Imèl</div>
+            <input type="email" id="si-email" placeholder="ou@egzanp.com" autocomplete="email" oninput="clearFieldErr('si-email')"/>
             <span class="field-ico">
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M1.5 4.5l6.5 5 6.5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
             </span>
           </div>
           <div class="field">
-            <div class="field-label">Password</div>
+            <div class="field-label">Modpas</div>
             <input type="password" id="si-pass" placeholder="••••••••" autocomplete="current-password" oninput="clearFieldErr('si-pass')" onkeydown="if(event.key==='Enter')handleEmailSignIn()"/>
             <span class="field-ico clickable" onclick="togglePw('si-pass',this)" title="Show password">
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="8" rx="6.5" ry="4.5" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="1.8" fill="currentColor" opacity=".5"/></svg>
             </span>
           </div>
-          <button class="forgot" onclick="switchToReset()">Forgot password?</button>
+          <button class="forgot" onclick="switchToReset()">Bliye modpas?</button>
         </div>
         <button class="btn-primary" id="signin-email-btn" onclick="handleEmailSignIn()" style="margin-top:12px">
-          <span class="btn-text">Sign in</span>
+          <span class="btn-text">Konekte</span>
           <div class="btn-spinner"></div>
         </button>
         <div class="switch-mode" style="margin-top:10px">
-          No account? <button onclick="switchEmailMode('signup')">Create one</button>
+          Pa gen kont? <button onclick="switchEmailMode('signup')">Kreye youn</button>
         </div>
       </div>
 
@@ -491,49 +506,49 @@ input{-webkit-user-select:text;user-select:text}
         <div style="display:flex;flex-direction:column;gap:10px;width:100%">
           <div class="name-row">
             <div class="field">
-              <div class="field-label">First name</div>
+              <div class="field-label">Prenon</div>
               <input type="text" id="su-first" placeholder="Marc" autocomplete="given-name"/>
             </div>
             <div class="field">
-              <div class="field-label">Last name</div>
+              <div class="field-label">Siyati</div>
               <input type="text" id="su-last" placeholder="Arthur" autocomplete="family-name"/>
             </div>
           </div>
           <div class="field">
-            <div class="field-label">Email</div>
-            <input type="email" id="su-email" placeholder="you@example.com" autocomplete="email" oninput="clearFieldErr('su-email')"/>
+            <div class="field-label">Imèl</div>
+            <input type="email" id="su-email" placeholder="ou@egzanp.com" autocomplete="email" oninput="clearFieldErr('su-email')"/>
             <span class="field-ico"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M1.5 4.5l6.5 5 6.5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg></span>
           </div>
           <div class="field">
-            <div class="field-label">Password</div>
-            <input type="password" id="su-pass" placeholder="At least 6 characters" autocomplete="new-password" oninput="checkPwStrength(this.value);clearFieldErr('su-pass')" onkeydown="if(event.key==='Enter')handleEmailSignUp()"/>
+            <div class="field-label">Modpas</div>
+            <input type="password" id="su-pass" placeholder="Omwen 6 karaktè" autocomplete="new-password" oninput="checkPwStrength(this.value);clearFieldErr('su-pass')" onkeydown="if(event.key==='Enter')handleEmailSignUp()"/>
             <span class="field-ico clickable" onclick="togglePw('su-pass',this)"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="8" rx="6.5" ry="4.5" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="1.8" fill="currentColor" opacity=".5"/></svg></span>
             <div class="pw-strength" id="pw-strength"><div class="pw-strength-fill" id="pw-fill"></div></div>
           </div>
         </div>
         <button class="btn-primary" id="signup-email-btn" onclick="handleEmailSignUp()" style="margin-top:12px">
-          <span class="btn-text">Create account</span>
+          <span class="btn-text">Kreye kont</span>
           <div class="btn-spinner"></div>
         </button>
         <div class="switch-mode" style="margin-top:10px">
-          Already have an account? <button onclick="switchEmailMode('signin')">Sign in</button>
+          Deja gen kont? <button onclick="switchEmailMode('signin')">Konekte</button>
         </div>
       </div>
 
       <!-- Reset password mode -->
       <div id="email-reset" style="display:none">
-        <p style="font-size:.76rem;color:var(--w3);line-height:1.6;margin-bottom:12px;text-align:center">Enter your email and we'll send a reset link.</p>
+        <p style="font-size:.76rem;color:var(--w3);line-height:1.6;margin-bottom:12px;text-align:center">Antre imèl ou epi nou ap voye yon lyen.</p>
         <div class="field" style="width:100%">
-          <div class="field-label">Email</div>
-          <input type="email" id="reset-email" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter')handleResetPw()"/>
+          <div class="field-label">Imèl</div>
+          <input type="email" id="reset-email" placeholder="ou@egzanp.com" autocomplete="email" onkeydown="if(event.key==='Enter')handleResetPw()"/>
           <span class="field-ico"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M1.5 4.5l6.5 5 6.5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg></span>
         </div>
         <button class="btn-primary" id="reset-btn" onclick="handleResetPw()" style="margin-top:12px;width:100%">
-          <span class="btn-text">Send reset link</span>
+          <span class="btn-text">Voye lyen reyinisyalizasyon</span>
           <div class="btn-spinner"></div>
         </button>
         <div class="switch-mode" style="margin-top:10px">
-          <button onclick="switchEmailMode('signin')">← Back to sign in</button>
+          <button onclick="switchEmailMode('signin')">← Retounen konekte</button>
         </div>
       </div>
 
@@ -541,7 +556,7 @@ input{-webkit-user-select:text;user-select:text}
 
     <div class="divider" style="margin-top:16px">
       <div class="div-line"></div>
-      <span class="div-txt">SECURE · PRIVATE · FREE</span>
+      <span class="div-txt">SEKIRIZE · PRIVE · GRATIS</span>
       <div class="div-line"></div>
     </div>
 
@@ -549,7 +564,7 @@ input{-webkit-user-select:text;user-select:text}
       En kontinye ou dakò ak<br>
       <a href="/terms" style="color:var(--w2);text-decoration:underline;text-underline-offset:2px">Kondisyon Sèvis</a> &nbsp;&amp;&nbsp; <a href="/privacy" style="color:var(--w2);text-decoration:underline;text-underline-offset:2px">Politik Konfidansyalite</a>
     </div>
-    <div class="byline" style="margin-top:16px">by <strong>Marc-Arthur Samuel Dalus</strong></div>
+    <div class="byline" style="margin-top:16px">pa <strong>Marc-Arthur Samuel Dalus</strong></div>
   </div>
 
 </div><!-- /login-shell -->
@@ -736,5 +751,165 @@ window.handleResetPw = async function() {
 };
 </script>
 
+
+<!-- TRANSLATE TOGGLE -->
+<button id="translate-btn" onclick="toggleLoginLang()" title="Translate / Tradui" aria-label="Toggle language">
+  <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5C6.3 3.8 5.5 5.9 5.5 8S6.3 12.2 8 14.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5C9.7 3.8 10.5 5.9 10.5 8S9.7 12.2 8 14.5" stroke="currentColor" stroke-width="1.2"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+  <span id="translate-lbl">EN</span>
+</button>
+<script>
+(function(){
+  var _lang = 'ht';
+  var _T = {
+    ht:{
+      title:'Binaris — Konekte',
+      tagline:'Bati nenpòt bagay<br>avèk entèlijans',
+      feat1:'Rapid',feat1s:'Repons AI rapid kòm eklè',
+      feat2:'Sekirize',feat2s:'Done ou, kontwòl ou',
+      feat3:'Plizyè Lang',feat3s:'24 lang sipòte',
+      feat4:'Vwa AI',feat4s:'Pale natirèlman, jwenn repons',
+      tab_g:'Google',tab_e:'Imèl',
+      btn_g:'Kontinye ak Google',
+      lbl_email:'IMÈL',lbl_pass:'MODPAS',lbl_fn:'PRENON',lbl_ln:'SIYATI',
+      ph_email:'ou@egzanp.com',ph_pass:'••••••••',ph_new:'Omwen 6 karaktè',
+      ph_fn:'Marc',ph_ln:'Arthur',
+      forgot:'Bliye modpas?',
+      btn_si:'Konekte',btn_su:'Kreye kont',btn_rs:'Voye lyen reyinisyalizasyon',
+      no_acc:'Pa gen kont?',create:'Kreye youn',
+      have_acc:'Deja gen kont?',si_lnk:'Konekte',
+      back:'← Retounen konekte',
+      reset_info:'Antre imèl ou epi nou ap voye yon lyen.',
+      divider:'SEKIRIZE · PRIVE · GRATIS',
+      terms_pre:"En kontinye ou dakò ak",
+      terms:'Kondisyon Sèvis',privacy:'Politik Konfidansyalite',
+      si_label:'Konekte pou kontinye',
+      byline:'pa <strong>Marc-Arthur Samuel Dalus</strong>',
+      trnsl_lbl:'EN'
+    },
+    en:{
+      title:'Binaris — Sign in',
+      tagline:'Build anything<br>with intelligence',
+      feat1:'Instant',feat1s:'Lightning-fast AI responses',
+      feat2:'Secure',feat2s:'Your data, your control',
+      feat3:'Multilingual',feat3s:'24 languages supported',
+      feat4:'Voice AI',feat4s:'Talk naturally, get answers',
+      tab_g:'Google',tab_e:'Email',
+      btn_g:'Continue with Google',
+      lbl_email:'EMAIL',lbl_pass:'PASSWORD',lbl_fn:'FIRST NAME',lbl_ln:'LAST NAME',
+      ph_email:'you@example.com',ph_pass:'••••••••',ph_new:'At least 6 characters',
+      ph_fn:'Marc',ph_ln:'Arthur',
+      forgot:'Forgot password?',
+      btn_si:'Sign in',btn_su:'Create account',btn_rs:'Send reset link',
+      no_acc:'No account?',create:'Create one',
+      have_acc:'Already have an account?',si_lnk:'Sign in',
+      back:'← Back to sign in',
+      reset_info:"Enter your email and we'll send a reset link.",
+      divider:'SECURE · PRIVATE · FREE',
+      terms_pre:"By continuing you agree to Binaris'",
+      terms:'Terms of Service',privacy:'Privacy Policy',
+      si_label:'Sign in to continue',
+      byline:'by <strong>Marc-Arthur Samuel Dalus</strong>',
+      trnsl_lbl:'HT'
+    }
+  };
+
+  function _set(sel,prop,val){
+    var els=document.querySelectorAll(sel);
+    els.forEach(function(e){if(prop==='innerHTML')e.innerHTML=val;else if(prop==='placeholder')e.placeholder=val;else e.textContent=val;});
+  }
+
+  function _applyLoginLang(l){
+    var T=_T[l];
+    document.title=T.title;
+    document.getElementById('translate-lbl').textContent=T.trnsl_lbl;
+    // Tagline
+    document.querySelectorAll('.tagline').forEach(function(e){e.innerHTML=T.tagline;});
+    // Features - desktop left panel feat-body
+    var fbs=document.querySelectorAll('.dev-desktop .feat-body .feat-txt');
+    if(fbs[0])fbs[0].textContent=T.feat1;
+    if(fbs[1])fbs[1].textContent=T.feat2;
+    if(fbs[2])fbs[2].textContent=T.feat3;
+    if(fbs[3])fbs[3].textContent=T.feat4;
+    var fls=document.querySelectorAll('.dev-desktop .feat-body .feat-label');
+    if(fls[0])fls[0].textContent=T.feat1s;
+    if(fls[1])fls[1].textContent=T.feat2s;
+    if(fls[2])fls[2].textContent=T.feat3s;
+    if(fls[3])fls[3].textContent=T.feat4s;
+    // Mobile feat chips - all .feat .feat-txt
+    var mft=document.querySelectorAll('.feat .feat-txt');
+    var desktopCount=fbs.length;
+    var mobileChips=[].slice.call(mft).filter(function(e){return !e.closest('.dev-desktop .feat-body');});
+    if(mobileChips[0])mobileChips[0].textContent=T.feat1;
+    if(mobileChips[1])mobileChips[1].textContent=T.feat2;
+    if(mobileChips[3])mobileChips[3].textContent=T.feat4;
+    // Tabs
+    var tabs=document.querySelectorAll('.auth-tab');
+    if(tabs[0])tabs[0].querySelector('span')||0; // keep google/email text simple
+    // Button text
+    document.querySelectorAll('#sign-in-btn .btn-text').forEach(function(e){e.textContent=T.btn_g;});
+    // Field labels
+    var fldLbls=document.querySelectorAll('.field-label');
+    // Set by odering in DOM: si-email, si-pass, su-first, su-last, su-email, su-pass, reset-email
+    // easier: find by input id sibling
+    function setLbl(inputId,txt){
+      var inp=document.getElementById(inputId);
+      if(inp){var lbl=inp.parentElement.querySelector('.field-label');if(lbl)lbl.textContent=txt;}
+    }
+    setLbl('si-email',T.lbl_email);setLbl('si-pass',T.lbl_pass);
+    setLbl('su-first',T.lbl_fn);setLbl('su-last',T.lbl_ln);
+    setLbl('su-email',T.lbl_email);setLbl('su-pass',T.lbl_pass);
+    // Placeholders
+    function setPh(id,txt){var e=document.getElementById(id);if(e)e.placeholder=txt;}
+    setPh('si-email',T.ph_email);setPh('reset-email',T.ph_email);
+    setPh('su-email',T.ph_email);
+    setPh('su-pass',T.ph_new);setPh('su-first',T.ph_fn);setPh('su-last',T.ph_ln);
+    // Forgot
+    document.querySelectorAll('.forgot').forEach(function(e){e.textContent=T.forgot;});
+    // Signin button
+    var sib=document.getElementById('signin-email-btn');
+    if(sib){var st=sib.querySelector('.btn-text');if(st)st.textContent=T.btn_si;}
+    var sub=document.getElementById('signup-email-btn');
+    if(sub){var sut=sub.querySelector('.btn-text');if(sut)sut.textContent=T.btn_su;}
+    var rsb=document.getElementById('reset-btn');
+    if(rsb){var rst=rsb.querySelector('.btn-text');if(rst)rst.textContent=T.btn_rs;}
+    // Switch mode links
+    document.querySelectorAll('.switch-mode').forEach(function(sm,i){
+      var btns=sm.querySelectorAll('button');
+      if(i===0){sm.childNodes[0].textContent=T.no_acc+' ';if(btns[0])btns[0].textContent=T.create;}
+      if(i===1){sm.childNodes[0].textContent=T.have_acc+' ';if(btns[0])btns[0].textContent=T.si_lnk;}
+      if(i===2){if(btns[0])btns[0].textContent=T.back;}
+    });
+    // Reset info
+    var ri=document.querySelector('#email-reset p');if(ri)ri.textContent=T.reset_info;
+    // Divider
+    document.querySelectorAll('.div-txt').forEach(function(e){e.textContent=T.divider;});
+    // Terms
+    document.querySelectorAll('.terms').forEach(function(e){
+      var links=e.querySelectorAll('a');
+      e.innerHTML='';
+      var span=document.createTextNode(T.terms_pre+' ');
+      e.appendChild(span);
+      if(links[0]){links[0].textContent=T.terms;e.appendChild(links[0]);}
+      e.appendChild(document.createTextNode('  &  '));
+      if(links[1]){links[1].textContent=T.privacy;e.appendChild(links[1]);}
+    });
+    // Byline
+    document.querySelectorAll('.byline').forEach(function(e){e.innerHTML=T.byline;});
+    // Desktop sign-in label
+    document.querySelectorAll('.card-signin-label').forEach(function(e){e.textContent=T.si_label;});
+  }
+
+  window.toggleLoginLang = function(){
+    _lang = (_lang==='ht') ? 'en' : 'ht';
+    localStorage.setItem('binaris_login_lang',_lang);
+    _applyLoginLang(_lang);
+  };
+
+  document.addEventListener('DOMContentLoaded',function(){
+    _lang = localStorage.getItem('binaris_login_lang') || 'ht';
+    _applyLoginLang(_lang);
+  });
+})();
+</script>
 </body>
 </html>

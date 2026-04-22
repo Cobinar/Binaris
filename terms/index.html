@@ -82,6 +82,21 @@ body{min-height:100vh;background:var(--bg);padding:0}
   .section{padding:20px 18px}
   .content{padding:8px 12px 60px}
 }
+
+#translate-btn{
+  position:fixed;bottom:24px;right:18px;z-index:900;
+  display:flex;align-items:center;gap:7px;
+  padding:9px 14px;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.22);border-radius:9999px;
+  color:rgba(255,255,255,.9);font-family:"Geist Mono","JetBrains Mono",monospace;
+  font-size:.68rem;font-weight:500;letter-spacing:.07em;cursor:pointer;
+  box-shadow:0 4px 20px rgba(0,0,0,.45);
+  transition:background .15s,transform .12s;
+  -webkit-user-select:none;user-select:none;
+}
+#translate-btn:hover{background:rgba(0,0,0,.7);transform:translateY(-1px)}
+#translate-btn:active{transform:scale(.97)}
 </style>
 </head>
 <body>
@@ -187,5 +202,46 @@ body{min-height:100vh;background:var(--bg);padding:0}
   &nbsp;&middot;&nbsp; <a href="/privacy">Politik Konfidansyalite</a>
 </footer>
 
+
+<button id="translate-btn" onclick="toggleTermsLang()" title="Translate / Tradui" aria-label="Toggle language">
+  <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5C6.3 3.8 5.5 5.9 5.5 8S6.3 12.2 8 14.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5C9.7 3.8 10.5 5.9 10.5 8S9.7 12.2 8 14.5" stroke="currentColor" stroke-width="1.2"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+  <span id="translate-lbl">EN</span>
+</button>
+<script>
+(function(){
+  var _lang='ht';
+  var T={
+    ht:{title:'Binaris — Kondisyon Sèvis',nav_back:'Retounen',badge:'Dokiman Legal',h1:'Kondisyon Sèvis',sub:'Tanpri li kondisyon sa yo anvan ou itilize Binaris.',date:'Dènye mizajou: Janvye 2025',s1h:'1. Akseptasyon Kondisyon yo',s1p:'Lè ou itilize Binaris, ou dakò ak kondisyon sèvis sa yo. Si ou pa dakò ak kondisyon sa yo, tanpri pa itilize aplikasyon nou an. Binaris rezève dwa pou chanje kondisyon sa yo nenpòt ki lè.',s2h:'2. Itilizasyon Apwopriye',s2p:'Ou dakò pou itilize Binaris yon fason responsab. Ou PA dwe:',s2l:['Itilize sèvis la pou aktivite ilegal oswa danjere','Eseye aksede sistèm nou yo san otorizasyon','Pataje enfòmasyon ki ka blese lòt moun','Viole dwa lòt moun oswa lwa ki aplikab yo'],s3h:'3. Kont Ou ak Sekirite',s3p:'Ou responsab pou pwoteje enfòmasyon koneksyon kont ou. Enfòme nou imedyatman si ou sispan gen aksè otorize nan kont ou. Binaris pa responsab pou pèt ki soti nan aksè san otorizasyon kont ou si ou pa enfòme nou.',s4h:'4. Sèvis AI ak Limit Li',s4p:'Binaris itilize teknoloji entèlijans atifisyèl pou bay repons. Repons AI ka gen erè oswa enfòmasyon ki demode. Ou dwe verifye enfòmasyon enpòtan anvan ou pran desizyon. Binaris pa garanti egzaktitid repons li bay yo.',s4p2:'Itilizatè ki pa konekte ka voye <strong>10 mesaj gratis</strong> anvan yo bezwen kreye yon kont.',s5h:'5. Pwopriyete Entèlektyèl',s5p:'Tout kontni, mak komèsyal, ak kòd Binaris se pwopriyete Marc-Arthur Samuel Dalus ak ekip Binaris. Ou pa gen dwa kopye, distribye, oswa modifye travay nou yo san pèmisyon ekri alavans.',s6h:'6. Limit Responsablite',s6p:'Binaris bay sèvis la "jan li ye a" san garanti. Nou pa responsab pou pèt endirèk, aksidantèl, oswa espesyal ki soti nan itilizasyon sèvis la, nan limit maksimòm ki pèmèt lwa aplikab.',s7h:'7. Lwa ki Aplikab',s7p:'Kondisyon sa yo gouvène pa lwa Repiblik Dayiti ak lwa Etazini. Nenpòt konfli ap rezoud nan tribinal ki gen konpetans nan zòn sa yo.',s8h:'8. Kontakte Nou',s8p:'Si ou gen kesyon sou kondisyon sa yo, kontakte nou atravè aplikasyon Binaris oswa vizite',footer_link:'Politik Konfidansyalite',btn_lbl:'EN'},
+    en:{title:'Binaris — Terms of Service',nav_back:'Back',badge:'Legal Document',h1:'Terms of Service',sub:'Please read these terms before using Binaris.',date:'Last updated: January 2025',s1h:'1. Acceptance of Terms',s1p:'By using Binaris, you agree to these terms of service. If you do not agree, please do not use our application. Binaris reserves the right to change these terms at any time.',s2h:'2. Appropriate Use',s2p:'You agree to use Binaris responsibly. You must NOT:',s2l:['Use the service for illegal or dangerous activities','Attempt to access our systems without authorization','Share information that could harm others','Violate the rights of others or applicable laws'],s3h:'3. Your Account & Security',s3p:'You are responsible for protecting your account login information. Notify us immediately if you lose authorized access to your account. Binaris is not responsible for losses from unauthorized account access if you fail to notify us.',s4h:'4. AI Service & Its Limits',s4p:'Binaris uses artificial intelligence technology to provide responses. AI responses may contain errors or outdated information. You must verify important information before making decisions. Binaris does not guarantee the accuracy of its responses.',s4p2:'Unauthenticated users may send <strong>10 free messages</strong> before needing to create an account.',s5h:'5. Intellectual Property',s5p:'All content, trademarks, and code of Binaris are the property of Marc-Arthur Samuel Dalus and the Binaris team. You may not copy, distribute, or modify our work without prior written permission.',s6h:'6. Limitation of Liability',s6p:'Binaris provides the service "as is" without warranty. We are not responsible for indirect, incidental, or special losses arising from use of the service, to the maximum extent permitted by applicable law.',s7h:'7. Applicable Law',s7p:'These terms are governed by the laws of the Republic of Haiti and the United States. Any disputes will be resolved in courts with jurisdiction in those areas.',s8h:'8. Contact Us',s8p:'If you have questions about these terms, contact us through the Binaris app or visit',footer_link:'Privacy Policy',btn_lbl:'HT'}
+  };
+  function _q(sel){return document.querySelector(sel)}
+  function _qa(sel){return document.querySelectorAll(sel)}
+  function _apply(l){
+    var t=T[l];
+    document.title=t.title;
+    document.getElementById('translate-lbl').textContent=t.btn_lbl;
+    var nb=_q('.nav-back');if(nb){nb.childNodes[nb.childNodes.length-1].textContent=' '+t.nav_back;}
+    var hb=_q('.hero-badge');if(hb)hb.childNodes[hb.childNodes.length-1].textContent=' '+t.badge;
+    var h1=_q('.hero h1');if(h1)h1.textContent=t.h1;
+    var hs=_q('.hero-sub');if(hs)hs.textContent=t.sub;
+    var hd=_q('.hero-date');if(hd)hd.textContent=t.date;
+    var secs=_qa('.section');
+    var keys=['s1','s2','s3','s4','s5','s6','s7','s8'];
+    secs.forEach(function(sec,i){
+      var k=keys[i];if(!k)return;
+      var h2=sec.querySelector('h2');
+      if(h2){var tx=h2.lastChild;if(tx)tx.textContent=t[k+'h'];}
+      var ps=sec.querySelectorAll('p');
+      if(ps[0])ps[0].textContent=t[k+'p'];
+      if(i===1){var ul=sec.querySelector('ul');if(ul){ul.innerHTML='';t.s2l.forEach(function(item){var li=document.createElement('li');li.textContent=item;ul.appendChild(li);});}}
+      if(i===3&&ps[1])ps[1].innerHTML=t.s4p2;
+      if(i===7&&ps[0]){ps[0].innerHTML=t.s8p+' <a href="https://payments.cobinar.com" target="_blank">payments.cobinar.com</a>.';}
+    });
+    var fl=_q('.footer a');if(fl)fl.textContent=t.footer_link;
+  }
+  window.toggleTermsLang=function(){_lang=_lang==='ht'?'en':'ht';localStorage.setItem('binaris_terms_lang',_lang);_apply(_lang);};
+  document.addEventListener('DOMContentLoaded',function(){_lang=localStorage.getItem('binaris_terms_lang')||'ht';_apply(_lang);});
+})();
+</script>
 </body>
 </html>

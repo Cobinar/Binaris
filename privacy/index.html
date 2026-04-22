@@ -86,6 +86,21 @@ body{min-height:100vh;background:var(--bg);padding:0}
   .section{padding:20px 18px}
   .content{padding:8px 12px 60px}
 }
+
+#translate-btn{
+  position:fixed;bottom:24px;right:18px;z-index:900;
+  display:flex;align-items:center;gap:7px;
+  padding:9px 14px;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.22);border-radius:9999px;
+  color:rgba(255,255,255,.9);font-family:"Geist Mono","JetBrains Mono",monospace;
+  font-size:.68rem;font-weight:500;letter-spacing:.07em;cursor:pointer;
+  box-shadow:0 4px 20px rgba(0,0,0,.45);
+  transition:background .15s,transform .12s;
+  -webkit-user-select:none;user-select:none;
+}
+#translate-btn:hover{background:rgba(0,0,0,.7);transform:translateY(-1px)}
+#translate-btn:active{transform:scale(.97)}
 </style>
 </head>
 <body>
@@ -215,5 +230,86 @@ body{min-height:100vh;background:var(--bg);padding:0}
   &nbsp;&middot;&nbsp; <a href="/terms">Kondisyon Sèvis</a>
 </footer>
 
+
+<button id="translate-btn" onclick="togglePrivacyLang()" title="Translate / Tradui" aria-label="Toggle language">
+  <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5C6.3 3.8 5.5 5.9 5.5 8S6.3 12.2 8 14.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5C9.7 3.8 10.5 5.9 10.5 8S9.7 12.2 8 14.5" stroke="currentColor" stroke-width="1.2"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+  <span id="translate-lbl">EN</span>
+</button>
+<script>
+(function(){
+  var _lang='ht';
+  var T={
+    ht:{title:'Binaris — Politik Konfidansyalite',nav_back:'Retounen',badge:'Konfidansyalite',h1:'Politik Konfidansyalite',sub:'Nou pwoteje done ou yo ak swen ak transparans.',date:'Dènye mizajou: Janvye 2025',
+    s1h:'1. Enfòmasyon Nou Kolekte',s1p:'Binaris kolekte enfòmasyon pou bay ou yon eksperyans pi bon. Sa ka enkli:',
+    s1l:['Enfòmasyon kont: non, adrès imèl, foto pwofil (si ou itilize Google Sign-In)','Konvèsasyon: mesaj ou voye ak repons AI yo (sove nan Firebase)','Done itilizasyon: paramèt lang, tèm, preferans vwa ou yo','Done teknik: tip aparèy, navigatè, adres IP pou sekirite'],
+    s1note:'Itilizatè ki pa gen kont — nou sèlman sove yon kòmptèy mesaj gratis nan yon cookie pou 30 jou. Pa gen lòt done pèsonèl nou kolekte.',
+    s2h:'2. Kijan Nou Itilize Done Ou',s2p:'Nou itilize done ou yo pou:',
+    s2l:['Bay repons AI pèsonalize ak kontekstyèl','Sove istwa konvèsasyon ou pou ou ka retrouve yo','Amelyore pèfòmans ak kalite sèvis la','Pwoteje kont ou ak detekte aktivite abi','Voye notifikasyon ou te chwazi resevwa yo'],
+    s2note:'Nou pa janm vann done ou yo bay tèt pati yo oswa itilize yo pou reklamasyon.',
+    s3h:'3. Sekirite Done Ou',s3p:'Binaris itilize Firebase Google pou otantifikasyon ak estokaj done. Tout done transmèt atravè koneksyon HTTPS kriptografik. Nou aplike pratik sekirite ki jan endistri rekòmande.',
+    s3note:'Kle API ou sove lokalmaan sou aparèy ou sèlman — nou pa janm jwenn li oswa sove li nan sèvè nou yo.',
+    s4h:'4. Cookies ak Estokaj Lokal',s4p:'Nou itilize cookies ak localStorage pou:',
+    s4l:['Cookie mesaj gratis: suivi konbyen mesaj ou voye anvan ou konekte (30 jou)','Preferans: lang, tèm, paramèt vwa ou yo (localStorage, lokal sèlman)','Sesi: Firebase jere otantifikasyon ou atravè cookies sekirize'],
+    s4note:'Ou ka efase cookies atravè navigatè ou nenpòt ki lè. Sa pral reinisyalize kòmptèy mesaj gratis ou.',
+    s5h:'5. Pataj Done ak Tèt Pati',s5p:'Binaris itilize sèvis tèt pati sa yo pou fonksyone:',
+    s5l:['Google Firebase: otantifikasyon ak baz done (politik Google aplikab)','Groq AI: trete mesaj ou pou jenere repons AI','Google Fonts: fontyè tipografik (pa gen done pèsonèl pataje)'],
+    s5note:'Nou pa pataje done ou ak lòt tèt pati san konsantman ou eksepte lè lwa egzije sa.',
+    s6h:'6. Dwa Ou yo',s6p:'Ou gen dwa pou:',
+    s6l:['Aksede: Wè tout done nou gen sou ou','Korije: Mande kòreksyon done ou yo','Efase: Mande nou efase kont ou ak done ki asosye','Pòtabilite: Jwenn yon kopi done ou nan fòma JSON'],
+    s6note:'Pou egzèse dwa sa yo, voye yon mesaj nan aplikasyon an oswa kontakte nou dirèkteman.',
+    s7h:'7. Kontakte Nou',s7p:'Si ou gen kesyon sou konfidansyalite ou oswa ou vle egzèse dwa ou, kontakte nou atravè aplikasyon Binaris. Ou ka tou sipòte nou atravè',
+    footer_link:'Kondisyon Sèvis',btn_lbl:'EN'},
+    en:{title:'Binaris — Privacy Policy',nav_back:'Back',badge:'Privacy',h1:'Privacy Policy',sub:'We protect your data with care and transparency.',date:'Last updated: January 2025',
+    s1h:'1. Information We Collect',s1p:'Binaris collects information to provide you a better experience. This may include:',
+    s1l:['Account information: name, email address, profile photo (if using Google Sign-In)','Conversations: messages you send and AI responses (saved in Firebase)','Usage data: language settings, theme, voice preferences','Technical data: device type, browser, IP address for security'],
+    s1note:'Users without accounts — we only save a free message counter in a cookie for 30 days. No other personal data is collected.',
+    s2h:'2. How We Use Your Data',s2p:'We use your data to:',
+    s2l:['Provide personalized and contextual AI responses','Save your conversation history so you can retrieve it','Improve the performance and quality of the service','Protect your account and detect abusive activity','Send notifications you chose to receive'],
+    s2note:'We never sell your data to third parties or use it for advertising.',
+    s3h:'3. Your Data Security',s3p:'Binaris uses Google Firebase for authentication and data storage. All data is transmitted over encrypted HTTPS connections. We apply industry-recommended security practices.',
+    s3note:'Your API key is saved locally on your device only — we never access or save it on our servers.',
+    s4h:'4. Cookies & Local Storage',s4p:'We use cookies and localStorage for:',
+    s4l:['Free message cookie: tracking how many messages you send before login (30 days)','Preferences: your language, theme, voice settings (localStorage, local only)','Session: Firebase manages your authentication via secure cookies'],
+    s4note:'You can delete cookies through your browser at any time. This will reset your free message counter.',
+    s5h:'5. Third-Party Data Sharing',s5p:'Binaris uses these third-party services to operate:',
+    s5l:['Google Firebase: authentication and database (Google policies apply)','Groq AI: processes your messages to generate AI responses','Google Fonts: typographic fonts (no personal data shared)'],
+    s5note:'We do not share your data with other third parties without your consent except when required by law.',
+    s6h:'6. Your Rights',s6p:'You have the right to:',
+    s6l:['Access: See all data we have about you','Correct: Request corrections to your data','Delete: Request we delete your account and associated data','Portability: Get a copy of your data in JSON format'],
+    s6note:'To exercise these rights, send a message in the app or contact us directly.',
+    s7h:'7. Contact Us',s7p:'If you have questions about your privacy or wish to exercise your rights, contact us through the Binaris app. You can also support us at',
+    footer_link:'Terms of Service',btn_lbl:'HT'}
+  };
+  function _q(sel){return document.querySelector(sel)}
+  function _qa(sel){return document.querySelectorAll(sel)}
+  function _apply(l){
+    var t=T[l];
+    document.title=t.title;
+    document.getElementById('translate-lbl').textContent=t.btn_lbl;
+    var nb=_q('.nav-back');if(nb){nb.childNodes[nb.childNodes.length-1].textContent=' '+t.nav_back;}
+    var hb=_q('.hero-badge');if(hb)hb.childNodes[hb.childNodes.length-1].textContent=' '+t.badge;
+    var h1=_q('.hero h1');if(h1)h1.textContent=t.h1;
+    var hs=_q('.hero-sub');if(hs)hs.textContent=t.sub;
+    var hd=_q('.hero-date');if(hd)hd.textContent=t.date;
+    var secs=_qa('.section');
+    var keys=['s1','s2','s3','s4','s5','s6','s7'];
+    secs.forEach(function(sec,i){
+      var k=keys[i];if(!k||!t[k+'h'])return;
+      var h2=sec.querySelector('h2');
+      if(h2){var tx=h2.lastChild;if(tx&&tx.nodeType===3)tx.textContent=t[k+'h'];else if(h2.lastChild)h2.lastChild.textContent=t[k+'h'];}
+      var ps=sec.querySelectorAll('p');
+      if(ps[0])ps[0].textContent=t[k+'p'];
+      var ul=sec.querySelector('ul');
+      if(ul&&t[k+'l']){ul.innerHTML='';t[k+'l'].forEach(function(item){var li=document.createElement('li');li.innerHTML=item;ul.appendChild(li);});}
+      var hl=sec.querySelector('.highlight p');
+      if(hl&&t[k+'note'])hl.textContent=t[k+'note'];
+      if(i===6&&ps[0]){ps[0].innerHTML=t.s7p+' <a href="https://payments.cobinar.com" target="_blank">payments.cobinar.com</a>.';}
+    });
+    var fl=_q('.footer a');if(fl)fl.textContent=t.footer_link;
+  }
+  window.togglePrivacyLang=function(){_lang=_lang==='ht'?'en':'ht';localStorage.setItem('binaris_privacy_lang',_lang);_apply(_lang);};
+  document.addEventListener('DOMContentLoaded',function(){_lang=localStorage.getItem('binaris_privacy_lang')||'ht';_apply(_lang);});
+})();
+</script>
 </body>
 </html>
