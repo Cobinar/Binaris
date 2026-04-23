@@ -5,9 +5,15 @@
   "start_url": "/",
   "display": "fullscreen",
   "orientation": "portrait",
-  "background_color": "#FF0000",
-  "theme_color": "#FF0000",
+  "background_color": "#CC0000",
+  "theme_color": "#CC0000",
   "icons": [
+    {
+      "src": "splash.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "icon-192.png",
       "sizes": "192x192",

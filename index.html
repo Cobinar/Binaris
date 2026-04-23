@@ -8,9 +8,11 @@
 <!-- PWA — makes Chrome/Edge/Samsung show the install prompt -->
 <link rel="manifest" href="manifest.json"/>
 <!-- Android: themes status bar + gesture nav bar to match app -->
-<meta name="theme-color" content="#FF0000" id="theme-color-meta"/>
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme:dark)" id="theme-color-dark"/>
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme:light)" id="theme-color-light"/>
+<meta name="theme-color" content="#CC0000" id="theme-color-meta"/>
+<meta name="theme-color" content="#CC0000" media="(prefers-color-scheme:dark)" id="theme-color-dark"/>
+<meta name="theme-color" content="#CC0000" media="(prefers-color-scheme:light)" id="theme-color-light"/>
+<link rel="apple-touch-icon" href="splash.png"/>
+<link rel="apple-touch-startup-image" href="splash.png"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <!-- iOS — full screen + status bar style -->
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -838,19 +840,12 @@ html{
 .topbar {
   border-bottom: none !important;
   box-shadow: 0 2px 0 rgba(0,0,0,0.3);
-  background: #1a3a6e !important;
+  background: #FF0000 !important;
 }
 
 /* Extend topbar bg all the way into the status bar notch */
 html, body {
   background-color: #FF0000;
-}
-/* Blue chat panel */
-.main {
-  background: #1a3a6e !important;
-}
-.dock::before {
-  background: linear-gradient(to top, #1a3a6e 55%, transparent) !important;
 }
 .topbar::before {
   content: '';
@@ -858,7 +853,7 @@ html, body {
   top: 0;
   left: 0; right: 0;
   height: env(safe-area-inset-top, 0px);
-  background: #1a3a6e;
+  background: #FF0000;
   z-index: 9999;
   pointer-events: none;
 }
@@ -964,52 +959,96 @@ html, body {
 
 /* ── translate button removed from main chat ── */
 
-/* ── SKYBLUE CHAT AREA — neobrutalist ── */
-.msgs-wrap {
+/* ══════════════════════════════════════════════
+   SKYBLUE NEOBRUTALIST INPUT BAR
+   ══════════════════════════════════════════════ */
+
+/* The input container itself — sky blue with hard neo border */
+.bar {
   background: #87CEEB !important;
+  border: 2.5px solid #1a6fa8 !important;
+  border-radius: 6px !important;
+  box-shadow: 4px 4px 0 #0d3d5e !important;
+  transition: box-shadow .12s, transform .1s !important;
 }
-#msgs {
-  background: #87CEEB !important;
+.bar:focus-within {
+  border-color: #0e5a8a !important;
+  box-shadow: 6px 6px 0 #0a2e46 !important;
+  transform: translate(-1px, -1px);
 }
-#empty {
-  background: #87CEEB !important;
+
+/* Textarea inside bar — full width, auto-grow like ChatGPT */
+.bar-tx {
+  background: transparent !important;
+  color: #05202e !important;
+  width: 100% !important;
+  min-height: 26px !important;
+  max-height: 180px !important;
+  overflow-y: auto !important;
+  resize: none !important;
+  line-height: 1.55 !important;
+  align-self: stretch !important;
 }
-/* AI bubble: skyblue card */
-.msg.ai .bubble {
-  background: #c5e8f7 !important;
-  border: 2px solid #5aacda !important;
-  box-shadow: 4px 4px 0 #2a7aaa !important;
+.bar-tx::placeholder {
+  color: #2a6a8a !important;
+  opacity: .75 !important;
+}
+
+/* Action chips inside bar */
+.acts {
+  border-top: 1.5px solid rgba(14,90,138,.25) !important;
+}
+.act {
+  background: rgba(255,255,255,.35) !important;
+  border: 1.5px solid rgba(14,90,138,.3) !important;
+  color: #04253a !important;
+  font-weight: 600 !important;
   border-radius: 4px !important;
-  color: #08304a !important;
 }
-/* AI avatar: skyblue ring */
-.msg.ai .m-av {
-  background: #c5e8f7 !important;
-  border: 2px solid #5aacda !important;
-  box-shadow: 2px 2px 0 #2a7aaa !important;
-  overflow: hidden !important;
+.act:hover {
+  background: rgba(255,255,255,.65) !important;
+  border-color: #0e5a8a !important;
+  transform: translate(-1px,-1px);
+  box-shadow: 2px 2px 0 #0d3d5e !important;
 }
-/* User bubble: bold red accent */
-.msg.user .bubble {
-  background: #1a0000 !important;
-  border: 2px solid #CC0000 !important;
-  box-shadow: 4px 4px 0 #070000 !important;
-  border-radius: 4px !important;
+.act.on {
+  background: #0e5a8a !important;
+  border-color: #0a2e46 !important;
   color: #fff !important;
+  box-shadow: 2px 2px 0 #0a2e46 !important;
 }
-/* Typing dots match skyblue scheme */
-.tdots span {
-  background: #2a7aaa !important;
+
+/* Send button — red neo on skyblue bar */
+.send-btn {
+  background: #CC0000 !important;
+  border: 2px solid #8a0000 !important;
+  box-shadow: 3px 3px 0 #3a0000 !important;
+  color: #fff !important;
+  border-radius: 5px !important;
 }
-/* Code blocks inside chat */
-.msg.ai .code-wrap {
-  border: 2px solid #5aacda !important;
-  box-shadow: 3px 3px 0 #2a7aaa !important;
+.send-btn:hover:not(:disabled) {
+  background: #e60000 !important;
+  transform: translate(-1px,-1px) !important;
+  box-shadow: 4px 4px 0 #3a0000 !important;
 }
-/* Scrollbar for chat area */
-.msgs-wrap::-webkit-scrollbar { width: 6px; }
-.msgs-wrap::-webkit-scrollbar-track { background: #87CEEB; }
-.msgs-wrap::-webkit-scrollbar-thumb { background: #5aacda; border-radius: 2px; }
+.send-btn:active:not(:disabled) {
+  transform: translate(1px,1px) !important;
+  box-shadow: 1px 1px 0 #3a0000 !important;
+}
+.send-btn:disabled {
+  background: rgba(204,0,0,.35) !important;
+  box-shadow: none !important;
+  border-color: rgba(138,0,0,.3) !important;
+}
+.send-btn.stop-mode {
+  background: #1a0000 !important;
+  border-color: #8a0000 !important;
+  color: #ff8080 !important;
+}
+
+/* Scrollbar for chat messages — normal theme scrollbar */
+.msgs-wrap::-webkit-scrollbar { width: 4px; }
+.msgs-wrap::-webkit-scrollbar-thumb { background: var(--s4); border-radius: 2px; }
 
 /* ── Splash screen: neo wordmark ── */
 .splash-wordmark {
@@ -1067,7 +1106,7 @@ html, body {
 <body>
 <!-- ═════════════════ PWA SPLASH ═════════════════ -->
 <div id="splash">
-  <div class="splash-logo"><img src="round-icon.png" alt="Binaris" onerror="this.style.display='none'"/></div>
+  <div class="splash-logo"><img src="splash.png" alt="Binaris" onerror="this.src='round-icon.png';this.onerror=null;"/></div>
   <div class="splash-wordmark">BINARIS</div>
   <div class="splash-byline">by Marc-Arthur Samuel Dalus</div>
   <div class="splash-dots">
@@ -1461,7 +1500,7 @@ setTimeout(updateOnlineStatus, 100);
    I18N
 ═════════════════════════════════════════ */
 const LANGS = {
-  en: { flag:"<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='12' fill='#B22234'/><rect y='0.92' width='16' height='0.92' fill='white'/><rect y='2.77' width='16' height='0.92' fill='white'/><rect y='4.62' width='16' height='0.92' fill='white'/><rect y='6.46' width='16' height='0.92' fill='white'/><rect y='8.31' width='16' height='0.92' fill='white'/><rect y='10.15' width='16' height='0.92' fill='white'/><rect width='7' height='6.46' fill='#3C3B6E'/></svg>',code:'EN',name:'English',dir:'ltr',
+  en: { flag:`<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='12' fill='#B22234'/><rect y='0.92' width='16' height='0.92' fill='white'/><rect y='2.77' width='16' height='0.92' fill='white'/><rect y='4.62' width='16' height='0.92' fill='white'/><rect y='6.46' width='16' height='0.92' fill='white'/><rect y='8.31' width='16' height='0.92' fill='white'/><rect y='10.15' width='16' height='0.92' fill='white'/><rect width='7' height='6.46' fill='#3C3B6E'/></svg>`,code:'EN',name:'English',dir:'ltr',
     new_chat:'New conversation',recent:'Recent',no_history:'No history.\nStart a conversation.',
     you:'You',local_account:'Local account',badge_text:'AI ASSISTANT',
     hero_line1:'Build anything',hero_line2:'with artificial intelligence',
@@ -1476,15 +1515,15 @@ const LANGS = {
     share:'Share',share_link:'Share link',copy_link:'Copy link',export:'Export',download_json:'Download as JSON',
     code_detected:'Code detected',listening:'Listening…',speak_now:'Speak now',end_call:'End',
     offline_title:'No connection',offline_sub:'Reconnecting…',offline_retry:'Retry',
-    offline_full_title:'You're offline',offline_full_sub:'Binaris needs an internet connection to respond. Check your connection and try again.',
+    offline_full_title:"You're offline",offline_full_sub:'Binaris needs an internet connection to respond. Check your connection and try again.',
     cards:[
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>',t:'Landing Page',d:'Animated hero, features & pricing',q:'Create a responsive SaaS landing page with animated hero, 4 features, and pricing table'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>',t:'REST API',d:'Express + JWT + PostgreSQL',q:'Write a Node.js REST API with Express, JWT authentication and PostgreSQL'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Debug',d:'Find root causes fast',q:'Fix this React performance issue and explain unnecessary re-renders'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Learn',d:'Deep analysis with examples',q:'Explain how WebSockets work with a complete JavaScript example'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>`,t:'Landing Page',d:'Animated hero, features & pricing',q:'Create a responsive SaaS landing page with animated hero, 4 features, and pricing table'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>`,t:'REST API',d:'Express + JWT + PostgreSQL',q:'Write a Node.js REST API with Express, JWT authentication and PostgreSQL'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Debug',d:'Find root causes fast',q:'Fix this React performance issue and explain unnecessary re-renders'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Learn',d:'Deep analysis with examples',q:'Explain how WebSockets work with a complete JavaScript example'},
     ]
   },
-  ht: { flag:'<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='6' fill='#00209F'/><rect y='6' width='16' height='6' fill='#D21034'/></svg>',code:'HT',name:'Kreyòl',dir:'ltr',
+  ht: { flag:`<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='6' fill='#00209F'/><rect y='6' width='16' height='6' fill='#D21034'/></svg>`,code:'HT',name:'Kreyòl',dir:'ltr',
     new_chat:'Nouvo konvèsasyon',recent:'Istwa resan',no_history:'Pa gen istwa.\nKòmanse yon konvèsasyon.',
     you:'Ou',local_account:'Kont lokal',badge_text:'ASISTAN AI',
     hero_line1:'Bati nenpòt bagay',hero_line2:'avèk entèlijans atifisyèl',
@@ -1501,16 +1540,16 @@ const LANGS = {
     offline_title:'Pa gen koneksyon',offline_sub:'Ap rechèche…',offline_retry:'Eseye ankò',
     offline_full_title:'Ou pa konekte',offline_full_sub:'Binaris bezwen entènèt pou reponn. Tcheke koneksyon ou epi eseye ankò.',
     cards:[
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>',t:'Paj Dakèy',d:'Hero anime, fonksyon ak pri',q:'Kreye yon paj dakèy SaaS responsiv ak seksyon hero anime, kat fonksyon ak tablo pri'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>',t:'API REST',d:'Express + JWT + PostgreSQL',q:'Ekri yon API REST Node.js ak Express, JWT ak PostgreSQL'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Debyoge',d:'Jwenn kòz rasin yo vit',q:'Korije pwoblèm pèfòmans React sa a epi eksplike reranman ki pa nesesè'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Aprann',d:'Analiz apwofondi ak egzanp',q:'Eksplike kijan WebSockets travay ak yon egzanp JavaScript konplè'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>`,t:'Paj Dakèy',d:'Hero anime, fonksyon ak pri',q:'Kreye yon paj dakèy SaaS responsiv ak seksyon hero anime, kat fonksyon ak tablo pri'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>`,t:'API REST',d:'Express + JWT + PostgreSQL',q:'Ekri yon API REST Node.js ak Express, JWT ak PostgreSQL'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Debyoge',d:'Jwenn kòz rasin yo vit',q:'Korije pwoblèm pèfòmans React sa a epi eksplike reranman ki pa nesesè'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Aprann',d:'Analiz apwofondi ak egzanp',q:'Eksplike kijan WebSockets travay ak yon egzanp JavaScript konplè'},
     ]
   },
-  fr: { flag:'<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='5.33' height='12' fill='#002395'/><rect x='5.33' width='5.34' height='12' fill='white'/><rect x='10.67' width='5.33' height='12' fill='#ED2939'/></svg>',code:'FR',name:'Français',dir:'ltr',
-    new_chat:'Nouvelle conversation',recent:'Récent',no_history:'Pas d'historique.\nCommencez une conversation.',
+  fr: { flag:`<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='5.33' height='12' fill='#002395'/><rect x='5.33' width='5.34' height='12' fill='white'/><rect x='10.67' width='5.33' height='12' fill='#ED2939'/></svg>`,code:'FR',name:'Français',dir:'ltr',
+    new_chat:'Nouvelle conversation',recent:'Récent',no_history:"Pas d'historique.\nCommencez une conversation.",
     you:'Vous',local_account:'Compte local',badge_text:'ASSISTANT IA',
-    hero_line1:'Créez n'importe quoi',hero_line2:'avec l'intelligence artificielle',
+    hero_line1:"Créez n'importe quoi",hero_line2:"avec l'intelligence artificielle",
     hero_sub:'Dites à Binaris ce que vous voulez créer.\nCode, design, explications — il gère tout.',
     placeholder:'Demandez à Binaris de créer quelque chose…',
     act_file:'Fichier',act_voice:'Voix',act_converse:'Parler',act_read:'Lire',
@@ -1518,19 +1557,19 @@ const LANGS = {
     settings:'Paramètres',theme:'Thème',language:'Langue',voice_char:'Voix Personnage',
     ai_status:'Binaris IA',voice:'Voix',auto_tts:'Lecture automatique des réponses',
     api_key:'Clé API',save_key:'Enregistrer',key_note:'Clé sauvegardée localement uniquement.',
-    data:'Données',clear_history:'Effacer l'historique',
+    data:'Données',clear_history:"Effacer l'historique",
     share:'Partager',share_link:'Lien de partage',copy_link:'Copier le lien',export:'Exporter',download_json:'Télécharger en JSON',
-    code_detected:'Code détecté',listening:'À l'écoute…',speak_now:'Parlez maintenant',end_call:'Terminer',
+    code_detected:'Code détecté',listening:"À l'écoute…",speak_now:'Parlez maintenant',end_call:'Terminer',
     offline_title:'Pas de connexion',offline_sub:'Reconnexion…',offline_retry:'Réessayer',
-    offline_full_title:'Vous êtes hors ligne',offline_full_sub:'Binaris a besoin d'une connexion internet. Vérifiez votre connexion et réessayez.',
+    offline_full_title:'Vous êtes hors ligne',offline_full_sub:"Binaris a besoin d'une connexion internet. Vérifiez votre connexion et réessayez.",
     cards:[
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>',t:'Page d'accueil',d:'Hero animé, fonctions & prix',q:'Créez une landing page SaaS responsive avec hero animé, 4 fonctions et tableau de prix'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>',t:'API REST',d:'Express + JWT + PostgreSQL',q:'Écris une API REST Node.js avec Express, authentification JWT et PostgreSQL'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Déboguer',d:'Trouvez la cause racine vite',q:'Corrige ce problème de performance React et explique les re-rendus inutiles'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Apprendre',d:'Analyse approfondie avec exemples',q:'Explique comment fonctionnent les WebSockets avec un exemple JavaScript complet'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>`,t:"Page d'accueil",d:'Hero animé, fonctions & prix',q:'Créez une landing page SaaS responsive avec hero animé, 4 fonctions et tableau de prix'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>`,t:'API REST',d:'Express + JWT + PostgreSQL',q:'Écris une API REST Node.js avec Express, authentification JWT et PostgreSQL'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Déboguer',d:'Trouvez la cause racine vite',q:'Corrige ce problème de performance React et explique les re-rendus inutiles'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Apprendre',d:'Analyse approfondie avec exemples',q:'Explique comment fonctionnent les WebSockets avec un exemple JavaScript complet'},
     ]
   },
-  es: { flag:'<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='12' fill='#c60b1e'/><rect y='3' width='16' height='6' fill='#ffc400'/></svg>',code:'ES',name:'Español',dir:'ltr',
+  es: { flag:`<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='12' fill='#c60b1e'/><rect y='3' width='16' height='6' fill='#ffc400'/></svg>`,code:'ES',name:'Español',dir:'ltr',
     new_chat:'Nueva conversación',recent:'Reciente',no_history:'Sin historial.\nComienza una conversación.',
     you:'Tú',local_account:'Cuenta local',badge_text:'ASISTENTE IA',
     hero_line1:'Construye cualquier cosa',hero_line2:'con inteligencia artificial',
@@ -1547,13 +1586,13 @@ const LANGS = {
     offline_title:'Sin conexión',offline_sub:'Reconectando…',offline_retry:'Reintentar',
     offline_full_title:'Estás sin conexión',offline_full_sub:'Binaris necesita internet para responder. Verifica tu conexión e intenta de nuevo.',
     cards:[
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>',t:'Landing Page',d:'Hero animado, funciones y precios',q:'Crea una landing page SaaS responsive con hero animado, 4 funciones y tabla de precios'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>',t:'API REST',d:'Express + JWT + PostgreSQL',q:'Escribe una API REST Node.js con Express, autenticación JWT y PostgreSQL'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Depurar',d:'Encuentra la causa raíz rápido',q:'Corrige este problema de rendimiento en React y explica los re-renders innecesarios'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Aprender',d:'Análisis profundo con ejemplos',q:'Explica cómo funcionan los WebSockets con un ejemplo JavaScript completo'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>`,t:'Landing Page',d:'Hero animado, funciones y precios',q:'Crea una landing page SaaS responsive con hero animado, 4 funciones y tabla de precios'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>`,t:'API REST',d:'Express + JWT + PostgreSQL',q:'Escribe una API REST Node.js con Express, autenticación JWT y PostgreSQL'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Depurar',d:'Encuentra la causa raíz rápido',q:'Corrige este problema de rendimiento en React y explica los re-renders innecesarios'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Aprender',d:'Análisis profundo con ejemplos',q:'Explica cómo funcionan los WebSockets con un ejemplo JavaScript completo'},
     ]
   },
-  pt: { flag:'<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='12' fill='#009C3B'/><polygon points='8,1 15,6 8,11 1,6' fill='#FEDF00'/><circle cx='8' cy='6' r='2.5' fill='#002776'/></svg>',code:'PT',name:'Português',dir:'ltr',
+  pt: { flag:`<svg width='16' height='12' viewBox='0 0 16 12' xmlns='http://www.w3.org/2000/svg'><rect width='16' height='12' fill='#009C3B'/><polygon points='8,1 15,6 8,11 1,6' fill='#FEDF00'/><circle cx='8' cy='6' r='2.5' fill='#002776'/></svg>`,code:'PT',name:'Português',dir:'ltr',
     new_chat:'Nova conversa',recent:'Recente',no_history:'Sem histórico.\nInicie uma conversa.',
     you:'Você',local_account:'Conta local',badge_text:'ASSISTENTE IA',
     hero_line1:'Construa qualquer coisa',hero_line2:'com inteligência artificial',
@@ -1570,10 +1609,10 @@ const LANGS = {
     offline_title:'Sem conexão',offline_sub:'Reconectando…',offline_retry:'Tentar novamente',
     offline_full_title:'Você está offline',offline_full_sub:'Binaris precisa de internet para responder. Verifique sua conexão e tente novamente.',
     cards:[
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>',t:'Landing Page',d:'Hero animado, funções e preços',q:'Crie uma landing page SaaS responsiva com hero animado, 4 funções e tabela de preços'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>',t:'API REST',d:'Express + JWT + PostgreSQL',q:'Escreva uma API REST Node.js com Express, autenticação JWT e PostgreSQL'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Depurar',d:'Encontre a causa raiz rápido',q:'Corrija este problema de performance em React e explique os re-renders desnecessários'},
-      {ico:'<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>',t:'Aprender',d:'Análise profunda com exemplos',q:'Explique como WebSockets funcionam com um exemplo JavaScript completo'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='2' y='8' width='14' height='9' rx='1' stroke='currentColor' stroke-width='1.3'/><path d='M5 8V5l4-3 4 3v3' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round'/><rect x='7' y='12' width='4' height='5' rx='.5' stroke='currentColor' stroke-width='1.2'/><line x1='5' y1='11' x2='5' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/><line x1='13' y1='11' x2='13' y2='13' stroke='currentColor' stroke-width='1.2' stroke-linecap='round'/></svg>`,t:'Landing Page',d:'Hero animado, funções e preços',q:'Crie uma landing page SaaS responsiva com hero animado, 4 funções e tabela de preços'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10.5 2L4 10.5H9L7.5 16L14 7.5H9.5L10.5 2Z' stroke='currentColor' stroke-width='1.3' stroke-linejoin='round' stroke-linecap='round'/></svg>`,t:'API REST',d:'Express + JWT + PostgreSQL',q:'Escreva uma API REST Node.js com Express, autenticação JWT e PostgreSQL'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='9' cy='10.5' r='4' stroke='currentColor' stroke-width='1.3'/><path d='M9 6.5V2.5M6.5 4l2.5 2.5L11.5 4' stroke='currentColor' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 9.5H2M13 9.5h3M5.5 13l-1.5 1.5M12.5 13l1.5 1.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Depurar',d:'Encontre a causa raiz rápido',q:'Corrija este problema de performance em React e explique os re-renders desnecessários'},
+      {ico:`<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z' stroke='currentColor' stroke-width='1.3'/><path d='M5.5 11.5A5 5 0 0 1 5.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M12.5 11.5A5 5 0 0 0 12.5 6.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M3 13.5A8 8 0 0 1 3 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><path d='M15 13.5A8 8 0 0 0 15 4.5' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/><line x1='9' y1='10' x2='9' y2='16' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg>`,t:'Aprender',d:'Análise profunda com exemplos',q:'Explique como WebSockets funcionam com um exemplo JavaScript completo'},
     ]
   },
 };
@@ -1585,7 +1624,7 @@ function applyLang(code){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(L[k]!==undefined)el.innerHTML=L[k].replace(/\n/g,'<br>');});
   const tx=document.getElementById('prompt'); if(tx) tx.placeholder=L.placeholder;
   const lf=document.getElementById('lang-flag'),lc=document.getElementById('lang-code');
-  if(lf) lf.innerHTML=L.flag; if(lc) lc.textContent=L.code;
+  if(lf) lf.textContent=L.flag; if(lc) lc.textContent=L.code;
   buildCards(); buildLangGrid(); updateSysLang(code);
 }
 function updateSysLang(code){
@@ -1639,9 +1678,12 @@ function applyTheme(id){
   const iosBar = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
   if(iosBar) iosBar.content = isLight ? 'default' : 'black-translucent';
 
-  // 5. Topbar is always blue for the chat panel — do NOT override with theme bg
-  // const topbar = document.querySelector('.topbar');
-  // if(topbar) topbar.style.backgroundColor = bgHex;
+  // 5. Topbar background is ALWAYS red — it's a brand colour, not theme-dependent
+  const topbar = document.querySelector('.topbar');
+  if(topbar) topbar.style.backgroundColor = '#CC0000';
+
+  // 5b. theme-color meta drives the OS title/status bar — keep it red to match topbar
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = '#CC0000'; });
 
   // 6. Sidebar also needs explicit bg so it bleeds correctly into safe area
   document.querySelectorAll('.sidebar,.sb-drawer').forEach(el => {
@@ -1656,7 +1698,7 @@ function applyTheme(id){
     requestAnimationFrame(() => {
       document.documentElement.style.backgroundColor = bgHex;
       document.body.style.backgroundColor = bgHex;
-      document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = bgHex; });
+      document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = '#CC0000'; });
     });
   });
 
@@ -1921,7 +1963,7 @@ function _updatePreviewBar(){
   if(label){
     if(rem === 0) label.textContent = 'Pa gen mesaj gratis — konekte pou kontinye';
     else if(rem === 1) label.innerHTML = '<strong>1</strong> mesaj anvan koneksyon';
-    else label.innerHTML = '<strong>' + rem + '</strong> mesaj anvan ou bezwen konekte';
+    else label.innerHTML = `<strong>' + rem + '</strong> mesaj anvan ou bezwen konekte`;
     label.style.color = rem <= 3 ? 'var(--err)' : rem <= 7 ? 'var(--warn)' : 'var(--w3)';
   }
 }
@@ -2171,7 +2213,17 @@ function showMsgs(){
   if(!curSid){ curSid='s'+Date.now()+Math.random().toString(36).slice(2,6); }
   if(wasEmpty && msgsEl.children.length === 0) notifyConversationStarted();
 }
-function onTxInput(el){autoResize(el);const n=el.value.length;charEl.textContent=n;charEl.classList.toggle('warn',n>1800);}
+function onTxInput(el){
+  // Auto-grow: reset height first to get correct scrollHeight
+  el.style.height = 'auto';
+  const maxH = 180;
+  const newH = Math.min(el.scrollHeight, maxH);
+  el.style.height = newH + 'px';
+  el.style.overflowY = el.scrollHeight > maxH ? 'auto' : 'hidden';
+  // char counter
+  const n = el.value.length;
+  if(charEl) { charEl.textContent = n; charEl.classList.toggle('warn', n > 1800); }
+}
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 function suggest(t){promptEl.value=t;onTxInput(promptEl);promptEl.focus();}
 function newChat(){
@@ -2199,7 +2251,7 @@ function handleSendStop(){if(streaming)stopGeneration();else send();}
 function stopGeneration(){stopFlag=true;abortCtrl?.abort();}
 function setSendMode(mode){
   sendEl.classList.toggle('stop-mode',mode==='stop'); sendEl.disabled=mode==='disabled';
-  sendIco.innerHTML=mode==='stop'?'<rect x='3.5' y='3.5' width='7' height='7' rx='1.5' fill='currentColor'/>':'<path d='M7 12V2M3.5 5.5L7 2L10.5 5.5' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/>';
+  sendIco.innerHTML=mode==='stop'?`<rect x="3.5" y="3.5" width="7" height="7" rx="1.5" fill="currentColor"/>`:`<path d="M7 12V2M3.5 5.5L7 2L10.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`;
 }
 async function send(){
   const text=promptEl.value.trim();
@@ -2234,7 +2286,7 @@ async function send(){
   }catch(err){
     if(err.name==='AbortError'||stopFlag){
       const p=bubble.querySelector('.mdbody');
-      if(!p||!p.textContent.trim())bubble.innerHTML='<span style='color:var(--w3);font-size:.82rem;font-style:italic'>Response stopped.</span>';
+      if(!p||!p.textContent.trim())bubble.innerHTML`<span style='color:var(--w3);font-size:.82rem;font-style:italic'>Response stopped.</span>`;
       notifyStopped();
     }
     else{bubble.innerHTML='';bubble.appendChild(mkError(err.message));notifyError(err.message);}
@@ -2248,7 +2300,7 @@ function setupMarked(){
   R.code=(code,lang)=>{const vl=lang&&hljs.getLanguage(lang)?lang:'';const hi=vl?hljs.highlight(code,{language:vl}).value:hljs.highlightAuto(code).value;const id='c'+Math.random().toString(36).slice(2,8);return `<div class='code-wrap'><div class='code-hdr'><span class='code-lang'>${(lang||'code').toUpperCase()}</span><button class='copy-btn' onclick='cpCode('${id}',this)'><svg width='10' height='10' viewBox='0 0 10 10' fill='none'><rect x='3' y='3' width='6' height='6' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 7V1h6' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy</button></div><pre><code id='${id}' class='hljs'>${hi}</code></pre></div>`;};
   marked.use({renderer:R});
 }
-function cpCode(id,btn){navigator.clipboard.writeText($(id)?.innerText||'').then(()=>{btn.classList.add('ok');btn.innerHTML='<svg width='10' height='10' viewBox='0 0 10 10' fill='none'><path d='M1.5 5L4 7.5L8.5 2' stroke='currentColor' stroke-width='1.35' stroke-linecap='round' stroke-linejoin='round'/></svg> Copied!';setTimeout(()=>{btn.classList.remove('ok');btn.innerHTML='<svg width='10' height='10' viewBox='0 0 10 10' fill='none'><rect x='3' y='3' width='6' height='6' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 7V1h6' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy';},2200);});}
+function cpCode(id,btn){navigator.clipboard.writeText($(id)?.innerText||'').then(()=>{btn.classList.add('ok');btn.innerHTML=`<svg width='10' height='10' viewBox='0 0 10 10' fill='none'><path d='M1.5 5L4 7.5L8.5 2' stroke='currentColor' stroke-width='1.35' stroke-linecap='round' stroke-linejoin='round'/></svg> Copied!`;setTimeout(()=>{btn.classList.remove('ok');btn.innerHTML=`<svg width='10' height='10' viewBox='0 0 10 10' fill='none'><rect x='3' y='3' width='6' height='6' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 7V1h6' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy`;},2200);});}
 function mkMd(text){const d=document.createElement('div');d.className='mdbody';d.innerHTML=marked.parse(text);return d;}
 function mkError(msg){const d=document.createElement('div');d.className='err-bubble';d.innerHTML=`<svg width='14' height='14' viewBox='0 0 14 14' fill='none'><circle cx='7' cy='7' r='5.5' stroke='currentColor' stroke-width='1.3'/><path d='M7 4.5V7.5M7 9.5V10' stroke='currentColor' stroke-width='1.3' stroke-linecap='round'/></svg><div><strong>Error:</strong> ${esc(msg)}</div>`;return d;}
 
@@ -2274,7 +2326,7 @@ function addMsg(role,content,typing=false,files=[]){
   if(!isU){who.innerHTML=`Binaris<div class='m-acts'><button class='m-act-btn' onclick='copyResponse(this)'><svg width='9' height='9' viewBox='0 0 9 9' fill='none'><rect x='2.5' y='2.5' width='5.5' height='5.5' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 6.5V1H6.5' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy</button></div>`;}
   else{who.textContent='You';}
   const bubble=document.createElement('div');bubble.className='bubble';
-  if(typing){bubble.innerHTML='<div class='tdots'><span></span><span></span><span></span></div>';}
+  if(typing){bubble.innerHTML`<div class='tdots'><span></span><span></span><span></span></div>`;}
   else if(isU){
     if(files.length){const fc=document.createElement('div');fc.className='fchips';files.forEach(f=>{const c=document.createElement('div');c.className='fchip';c.innerHTML=`${fEmo(f.name)} <span class='fchip-name'>${f.name}</span><span class='fchip-sz'>${szFmt(f.size)}</span>`;fc.appendChild(c);});bubble.appendChild(fc);}
     const t=document.createElement('span');t.style.whiteSpace='pre-wrap';t.textContent=content;bubble.appendChild(t);
@@ -2285,7 +2337,7 @@ function addMsg(role,content,typing=false,files=[]){
   if(wrapEl.scrollHeight-wrapEl.scrollTop-wrapEl.clientHeight<120)scrollBot();
   return bubble;
 }
-function copyResponse(btn){const bubble=btn.closest('.msg').querySelector('.bubble');navigator.clipboard.writeText(bubble?.innerText||'').then(()=>{btn.textContent='Copied ✓';setTimeout(()=>{btn.innerHTML='<svg width='9' height='9' viewBox='0 0 9 9' fill='none'><rect x='2.5' y='2.5' width='5.5' height='5.5' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 6.5V1H6.5' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy';},2000);});}
+function copyResponse(btn){const bubble=btn.closest('.msg').querySelector('.bubble');navigator.clipboard.writeText(bubble?.innerText||'').then(()=>{btn.textContent='Copied ✓';setTimeout(()=>{btn.innerHTML=`<svg width='9' height='9' viewBox='0 0 9 9' fill='none'><rect x='2.5' y='2.5' width='5.5' height='5.5' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 6.5V1H6.5' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy`;},2000);});}
 
 /* FILES */
 function trigFile(){$('file-in').click();}
@@ -2385,7 +2437,7 @@ function closeSettings(){const ov=$('ov-settings');ov.classList.remove('open');u
 function openShare(){const ov=$('ov-share');ov.classList.add('open');lockScroll(ov);const url=window.location.href.split('?')[0]+'?s='+encodeURIComponent(JSON.stringify({sid:curSid})).slice(0,200);$('share-url-el').textContent=url;}
 function closeShare(){const ov=$('ov-share');ov.classList.remove('open');unlockScroll(ov);}
 function ovBg(e,id){if(e.target.id===id){const ov=$(id);ov.classList.remove('open');unlockScroll(ov);}}
-async function copyShareLink(){await navigator.clipboard.writeText($('share-url-el').textContent);const btn=$('share-copy-btn'),orig=btn.innerHTML;btn.innerHTML='<svg width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M2 6L5 9L10 3' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg> Copied ✓';setTimeout(()=>btn.innerHTML=orig,2200);}
+async function copyShareLink(){await navigator.clipboard.writeText($('share-url-el').textContent);const btn=$('share-copy-btn'),orig=btn.innerHTML;btn.innerHTML=`<svg width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M2 6L5 9L10 3' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg> Copied ✓`;setTimeout(()=>btn.innerHTML=orig,2200);}
 function exportChat(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({session:curSid,messages:history.slice(1)},null,2)],{type:'application/json'}));a.download=`binaris-${curSid||'chat'}.json`;a.click();}
 
 
@@ -2779,16 +2831,16 @@ function dismissSplash(){
   const step2 = document.getElementById('iab-step2');
   if(ua.includes('FBAN') || ua.includes('FBAV')){
     if(step1) step1.textContent = 'Tap the ··· menu in the top-right corner';
-    if(step2) step2.innerHTML = 'Tap <strong>'Open in external browser'</strong>';
+    if(step2) step2.innerHTML = `Tap <strong>'Open in external browser'</strong>`;
   } else if(ua.includes('Instagram')){
     if(step1) step1.textContent = 'Tap the ··· menu at the bottom-right';
-    if(step2) step2.innerHTML = 'Tap <strong>'Open in browser'</strong>';
+    if(step2) step2.innerHTML = `Tap <strong>'Open in browser'</strong>`;
   } else if(isAndroid){
     if(step1) step1.textContent = 'Tap the menu (⋮) in the top-right corner';
-    if(step2) step2.innerHTML = 'Tap <strong>'Open in Chrome'</strong> or <strong>'Open in browser'</strong>';
+    if(step2) step2.innerHTML = `Tap <strong>'Open in Chrome'</strong> or <strong>'Open in browser'</strong>`;
   } else {
     if(step1) step1.textContent = 'Tap the Share icon at the bottom of the screen';
-    if(step2) step2.innerHTML = 'Tap <strong>'Open in Safari'</strong>';
+    if(step2) step2.innerHTML = `Tap <strong>'Open in Safari'</strong>`;
   }
 })();
 
@@ -2822,8 +2874,9 @@ showInstallPanel();
       document.documentElement.style.backgroundColor = hex;
       document.body.style.backgroundColor = hex;
     }
+    // Always keep status bar / title bar red to match topbar brand colour
     document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
-      if (m.content !== hex) m.content = hex;
+      if (m.content !== '#CC0000') m.content = '#CC0000';
     });
     document.documentElement.style.colorScheme = t.light ? 'light' : 'dark';
   }
@@ -2850,47 +2903,6 @@ showInstallPanel();
   window.addEventListener('focus', syncNavBar);
   window.addEventListener('pageshow', syncNavBar);
 })();
-
-/* ── Expose all button-handler functions on window so they are reachable
-   from onclick="" attributes regardless of module/strict-mode boundaries ── */
-window.retryConnection  = retryConnection;
-window.newChat          = newChat;
-window.toggleSelectMode = toggleSelectMode;
-window.deleteSelected   = deleteSelected;
-window.openSettings     = openSettings;
-window.closeSettings    = closeSettings;
-window.openDrawer       = openDrawer;
-window.closeDrawer      = closeDrawer;
-window.openShare        = openShare;
-window.closeShare       = closeShare;
-window.exportChat       = exportChat;
-window.openNotifPanel   = openNotifPanel;
-window.closeNotifPanel  = closeNotifPanel;
-window.clearAllNotifs   = clearAllNotifs;
-window.closeSysNotif    = closeSysNotif;
-window.trigFile         = trigFile;
-window.toggleMic        = toggleMic;
-window.openVoice        = openVoice;
-window.closeVoice       = closeVoice;
-window.toggleVMute      = toggleVMute;
-window.toggleTTS        = toggleTTS;
-window.handleSendStop   = handleSendStop;
-window.scrollBot        = scrollBot;
-window.handleKey        = handleKey;
-window.onTxInput        = onTxInput;
-window.handleFiles      = handleFiles;
-window.dismissPaste     = dismissPaste;
-window.ovBg             = ovBg;
-window.clearHistory     = clearHistory;
-window.toggleKeyVis     = toggleKeyVis;
-window.clearKey         = clearKey;
-window.suggest          = suggest;
-window.applyLang        = applyLang;
-window.applyTheme       = applyTheme;
-window.dismissNotif     = dismissNotif;
-window.loadSession      = loadSession;
-window.toggleSelectItem = toggleSelectItem;
-window.showInstallPanel = showInstallPanel;
 
 
 </script>
