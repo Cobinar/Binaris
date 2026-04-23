@@ -887,14 +887,12 @@ html, body {
 
 /* ── Input fields: bold border ── */
 .field input,
-#key-input,
-.bar-tx {
+#key-input {
   border: var(--neo-border) !important;
   border-radius: var(--neo-radius) !important;
 }
 .field input:focus,
-#key-input:focus,
-.bar-tx:focus {
+#key-input:focus {
   border-color: var(--w1) !important;
   box-shadow: var(--neo-shadow-sm) !important;
 }
@@ -912,11 +910,54 @@ html, body {
   border-right: var(--neo-border) !important;
 }
 
-/* ── Chat messages: user bubble ── */
+/* ── Chat messages: clean bubbles only — no outer wrapper decoration ── */
+/* Remove .msg.user .m-body border that was adding a box around the bubble */
 .msg.user .m-body {
-  border: 1px solid rgba(0,0,0,0.4) !important;
-  box-shadow: var(--neo-shadow-sm) !important;
-  border-radius: var(--neo-radius) !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/* Bubble entrance animation */
+@keyframes bubbleIn {
+  from { opacity: 0; transform: translateY(10px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.msg {
+  border-bottom: none !important;
+  animation: bubbleIn .22s cubic-bezier(.16,1,.3,1) both !important;
+}
+.msg.user .bubble {
+  animation: bubbleIn .18s cubic-bezier(.16,1,.3,1) both !important;
+}
+.msg.ai .bubble {
+  animation: bubbleIn .24s cubic-bezier(.16,1,.3,1) both !important;
+}
+
+/* Hide m-who labels (name chips) — keep only the bubble */
+.m-who { display: none !important; }
+
+/* Hide avatars — just show the bubbles */
+.m-av { display: none !important; }
+
+/* Clean bubble layout without avatar offset */
+.msg {
+  gap: 0 !important;
+  padding: 6px 0 !important;
+}
+.m-body { padding: 0 !important; }
+.msg.ai { justify-content: flex-start !important; }
+.msg.user { justify-content: flex-end !important; }
+.msg.ai .bubble {
+  max-width: 82% !important;
+  width: fit-content !important;
+}
+.msg.user .bubble {
+  float: none !important;
+  display: inline-block !important;
+  margin-left: auto !important;
+  max-width: 82% !important;
 }
 
 /* ── Status chip / lang chip ── */
@@ -1678,12 +1719,12 @@ function applyTheme(id){
   const iosBar = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
   if(iosBar) iosBar.content = isLight ? 'default' : 'black-translucent';
 
-  // 5. Topbar background is ALWAYS red — it's a brand colour, not theme-dependent
+  // 5. Topbar background is ALWAYS red — brand colour
   const topbar = document.querySelector('.topbar');
   if(topbar) topbar.style.backgroundColor = '#CC0000';
 
-  // 5b. theme-color meta drives the OS title/status bar — keep it red to match topbar
-  document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = '#CC0000'; });
+  // 5b. theme-color meta drives the OS browser chrome / PWA title bar — sync with theme
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = bgHex; });
 
   // 6. Sidebar also needs explicit bg so it bleeds correctly into safe area
   document.querySelectorAll('.sidebar,.sb-drawer').forEach(el => {
@@ -1698,7 +1739,7 @@ function applyTheme(id){
     requestAnimationFrame(() => {
       document.documentElement.style.backgroundColor = bgHex;
       document.body.style.backgroundColor = bgHex;
-      document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = '#CC0000'; });
+      document.querySelectorAll('meta[name="theme-color"]').forEach(m => { m.content = bgHex; });
     });
   });
 
@@ -2326,7 +2367,7 @@ function addMsg(role,content,typing=false,files=[]){
   if(!isU){who.innerHTML=`Binaris<div class='m-acts'><button class='m-act-btn' onclick='copyResponse(this)'><svg width='9' height='9' viewBox='0 0 9 9' fill='none'><rect x='2.5' y='2.5' width='5.5' height='5.5' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 6.5V1H6.5' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy</button></div>`;}
   else{who.textContent='You';}
   const bubble=document.createElement('div');bubble.className='bubble';
-  if(typing){bubble.innerHTML`<div class='tdots'><span></span><span></span><span></span></div>`;}
+  if(typing){bubble.innerHTML=`<div class='tdots'><span></span><span></span><span></span></div>`;}
   else if(isU){
     if(files.length){const fc=document.createElement('div');fc.className='fchips';files.forEach(f=>{const c=document.createElement('div');c.className='fchip';c.innerHTML=`${fEmo(f.name)} <span class='fchip-name'>${f.name}</span><span class='fchip-sz'>${szFmt(f.size)}</span>`;fc.appendChild(c);});bubble.appendChild(fc);}
     const t=document.createElement('span');t.style.whiteSpace='pre-wrap';t.textContent=content;bubble.appendChild(t);
@@ -2874,9 +2915,9 @@ showInstallPanel();
       document.documentElement.style.backgroundColor = hex;
       document.body.style.backgroundColor = hex;
     }
-    // Always keep status bar / title bar red to match topbar brand colour
+    // Sync browser chrome / PWA title bar with current theme
     document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
-      if (m.content !== '#CC0000') m.content = '#CC0000';
+      if (m.content !== hex) m.content = hex;
     });
     document.documentElement.style.colorScheme = t.light ? 'light' : 'dark';
   }
