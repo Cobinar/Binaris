@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cobinar Popup</title>
+<style>
+/*
+  COBINAR POPUP COMPONENT
+  ────────────────────────
+  Usage as standalone overlay: include this via an iframe or
+  copy the <div id="cobinar-popup"> + styles + script into any page.
+  
+  The popup reads its config from popup.js in the same folder.
+*/
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#ff6a00;
+  --font:'Plus Jakarta Sans',system-ui,sans-serif;
+  --display:'Unbounded',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html,body{height:100%;background:transparent;}
+body{font-family:var(--font);-webkit-font-smoothing:antialiased;}
+
+/* ── BACKDROP ── */
+#cobinar-popup{
+  position:fixed;inset:0;z-index:99999;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+#cobinar-popup.show{opacity:1;pointer-events:all;}
+#cobinar-popup.closing{opacity:0;pointer-events:none;}
+
+/* ── CARD ── */
+.popup-card{
+  position:relative;
+  width:100%;max-width:400px;
+  background:#fff;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.3),0 0 0 1px rgba(0,0,0,.06);
+  transform:scale(.92) translateY(24px);
+  transition:transform .4s var(--ease);
+}
+#cobinar-popup.show .popup-card{transform:scale(1) translateY(0);}
+#cobinar-popup.closing .popup-card{transform:scale(.94) translateY(12px);}
+
+/* ── HEADER STRIP ── */
+.popup-header{
+  background:linear-gradient(135deg,var(--orange) 0%,#ff9940 100%);
+  padding:32px 28px 24px;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  text-align:center;
+  position:relative;
+}
+.popup-header::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:24px;
+  background:#fff;clip-path:ellipse(55% 100% at 50% 100%);
+}
+.popup-icon{
+  width:68px;height:68px;border-radius:18px;
+  background:rgba(255,255,255,.18);
+  border:1.5px solid rgba(255,255,255,.3);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.2),0 0 0 6px rgba(255,255,255,.1);
+}
+.popup-icon img{width:100%;height:100%;object-fit:cover;border-radius:16px;}
+.popup-icon svg{width:36px;height:36px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.popup-title{
+  font-family:'Unbounded',var(--display);font-weight:900;
+  font-size:1.1rem;letter-spacing:-.03em;
+  color:#fff;
+  text-shadow:0 1px 4px rgba(0,0,0,.2);
+}
+
+/* ── BODY ── */
+.popup-body{padding:8px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;}
+.popup-desc{font-size:.88rem;line-height:1.65;color:#444;}
+.popup-btn{
+  width:100%;padding:14px;border-radius:14px;
+  background:var(--orange);color:#fff;border:none;cursor:pointer;
+  font-family:var(--font);font-size:.9rem;font-weight:700;letter-spacing:-.01em;
+  text-decoration:none;display:inline-block;
+  box-shadow:0 4px 20px rgba(255,106,0,.4);
+  transition:transform .2s var(--ease),box-shadow .2s,filter .15s;
+}
+.popup-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,106,0,.5);filter:brightness(1.06);}
+.popup-btn:active{transform:translateY(0) scale(.98);}
+.popup-dismiss{
+  font-size:.75rem;color:#aaa;background:none;border:none;cursor:pointer;
+  transition:color .15s;padding:4px;
+}
+.popup-dismiss:hover{color:#444;}
+
+/* ── CLOSE ── */
+.popup-close{
+  position:absolute;top:12px;right:14px;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.2);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1rem;line-height:1;
+  transition:background .15s;
+}
+.popup-close:hover{background:rgba(255,255,255,.35);}
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+</style>
+</head>
+<body>
+
+<div id="cobinar-popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+  <div class="popup-card">
+    <div class="popup-header">
+      <button class="popup-close" id="popupClose" aria-label="Close">✕</button>
+      <div class="popup-icon" id="popupIcon">
+        <!-- Icon injected by JS -->
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>
+      </div>
+      <div class="popup-title" id="popupTitle">Welcome</div>
+    </div>
+    <div class="popup-body">
+      <p class="popup-desc" id="popupDesc"></p>
+      <a class="popup-btn" id="popupBtn" href="#" target="_blank" rel="noopener">Explore Cobinar →</a>
+      <button class="popup-dismiss" id="popupDismiss" style="display:none;">No thanks</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { POPUP_CONFIG, getButtonLabel } from './popup.js';
+
+const $ = id => document.getElementById(id);
+const CFG = POPUP_CONFIG;
+
+if (!CFG.enabled) {
+  // Popup disabled — do nothing
+} else {
+  const SESS_KEY = 'cobinar-popup-seen';
+
+  function init() {
+    if (CFG.oncePerSession && sessionStorage.getItem(SESS_KEY)) return;
+
+    /* Fill content */
+    $('popupTitle').textContent = CFG.title || 'Welcome to Cobinar';
+    $('popupDesc').textContent  = CFG.description || '';
+
+    /* Icon */
+    if (CFG.image) {
+      const img = document.createElement('img');
+      img.src = CFG.image; img.alt = CFG.title;
+      img.onerror = () => {};
+      $('popupIcon').innerHTML = '';
+      $('popupIcon').appendChild(img);
+    }
+
+    /* Button */
+    const btn = $('popupBtn');
+    btn.textContent = getButtonLabel(CFG);
+    btn.href = CFG.button.link || '#';
+    if (!CFG.button.newTab) btn.removeAttribute('target');
+
+    /* Dismiss label */
+    if (CFG.dismissLabel) {
+      const d = $('popupDismiss');
+      d.style.display = 'block';
+      d.textContent = CFG.dismissLabel;
+    }
+
+    /* Show */
+    setTimeout(() => {
+      const el = $('cobinar-popup');
+      el.classList.add('show');
+      if (CFG.oncePerSession) sessionStorage.setItem(SESS_KEY, '1');
+    }, CFG.delay ?? 2000);
+  }
+
+  function close() {
+    const el = $('cobinar-popup');
+    el.classList.add('closing');
+    setTimeout(() => { el.classList.remove('show', 'closing'); }, 300);
+  }
+
+  $('popupClose').addEventListener('click',   close);
+  $('popupDismiss').addEventListener('click', close);
+  $('cobinar-popup').addEventListener('click', e => { if (e.target === $('cobinar-popup')) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  /* Run after DOM ready */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+}
+</script>
+</body>
+</html>
