@@ -27,16 +27,7 @@
 <link id="hljs-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<!-- Auth guard — redirects to login.html if not signed in -->
-<script type="module">
-import { auth, onAuthStateChanged } from "./firebase-init.js";
-// One-shot auth check — unsubscribes after first resolution so token
-// refreshes don't accidentally redirect an authenticated user.
-const _unsub = onAuthStateChanged(auth, (user) => {
-  _unsub();
-  if (!user) window.location.replace('./login.html');
-});
-</script>
+<!-- Auth guard handled by main.js (see bottom of body) — avoids race with Firebase session restore -->
 <style>
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
@@ -62,6 +53,8 @@ const _unsub = onAuthStateChanged(auth, (user) => {
   --theme-bar:#000;
 }
 /* ── THEMES ──────────────────────────────── */
+[data-theme="black"]{--bg:#000000;--s1:#0a0a0a;--s2:#111111;--s3:#191919;--s4:#222222;--s5:#2c2c2c;--w1:#f0f0f0;--w2:rgba(240,240,240,.68);--w3:rgba(240,240,240,.36);--w4:rgba(240,240,240,.14);--w5:rgba(240,240,240,.07);--w6:rgba(240,240,240,.03);--b1:rgba(240,240,240,.09);--b2:rgba(240,240,240,.14);--b3:rgba(240,240,240,.22);--ok:#32d583;--warn:#ff8040;--err:#ff4444;--theme-bar:#000000}
+[data-theme="black"] .code-wrap{background:#050505}[data-theme="black"] .code-hdr{background:#0a0a0a}[data-theme="black"] .dock::before{background:linear-gradient(to top,#000 55%,transparent)}[data-theme="black"] .topbar{background:#CC0000!important}
 [data-theme="slate"]{--bg:#0f1117;--s1:#161b22;--s2:#1c2230;--s3:#222b3a;--s4:#2a3347;--s5:#333f56;--w1:#e6edf3;--w2:rgba(230,237,243,.68);--w3:rgba(230,237,243,.38);--w4:rgba(230,237,243,.14);--w5:rgba(230,237,243,.07);--w6:rgba(230,237,243,.04);--b1:rgba(230,237,243,.09);--b2:rgba(230,237,243,.14);--b3:rgba(230,237,243,.22);--ok:#3fb950;--warn:#d29922;--err:#f85149;--theme-bar:#0f1117}
 [data-theme="slate"] .code-wrap{background:#0d1117}[data-theme="slate"] .code-hdr{background:#161b22}[data-theme="slate"] .dock::before{background:linear-gradient(to top,#0f1117 55%,transparent)}
 [data-theme="light"]{--bg:#fff;--s1:#f5f5f5;--s2:#efefef;--s3:#e6e6e6;--s4:#d8d8d8;--s5:#c8c8c8;--w1:#0a0a0a;--w2:rgba(0,0,0,.65);--w3:rgba(0,0,0,.38);--w4:rgba(0,0,0,.15);--w5:rgba(0,0,0,.06);--w6:rgba(0,0,0,.03);--b1:rgba(0,0,0,.08);--b2:rgba(0,0,0,.13);--b3:rgba(0,0,0,.22);--ok:#1aad5e;--warn:#d4600a;--err:#d42828;--theme-bar:#ffffff}
@@ -1396,13 +1389,21 @@ html, body {
 
     <div class="p-sec" style="text-align:center">
       <a href="https://payments.cobinar.com" target="_blank" rel="noopener"
-         style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(255,80,80,.08);border:1px solid rgba(255,80,80,.22);border-radius:var(--r-pill);color:var(--w2);text-decoration:none;font-size:.75rem;font-weight:500;font-family:var(--mono);letter-spacing:.03em;transition:background .15s,border-color .15s"
-         onmouseover="this.style.background='rgba(255,80,80,.16)';this.style.borderColor='rgba(255,80,80,.4)'"
-         onmouseout="this.style.background='rgba(255,80,80,.08)';this.style.borderColor='rgba(255,80,80,.22)'">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 13.5C8 13.5 1.5 9.5 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.2 2.6 8 3.5C8.8 2.6 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9.5 8 13.5 8 13.5Z" stroke="#ff5050" stroke-width="1.3" stroke-linejoin="round" fill="rgba(255,80,80,.25)"/>
+         style="display:inline-flex;align-items:center;gap:9px;padding:13px 22px;
+                background:rgba(255,213,0,.13);
+                border:2px solid rgba(255,213,0,.7);
+                border-radius:var(--r-pill);
+                color:#FFD700;
+                text-decoration:none;font-size:.82rem;font-weight:800;
+                font-family:var(--font);letter-spacing:.04em;
+                box-shadow:0 0 18px rgba(255,213,0,.18),3px 3px 0 rgba(255,213,0,.25);
+                transition:background .15s,border-color .15s,box-shadow .15s,transform .12s"
+         onmouseover="this.style.background='rgba(255,213,0,.22)';this.style.borderColor='rgba(255,213,0,1)';this.style.boxShadow='0 0 28px rgba(255,213,0,.35),4px 4px 0 rgba(255,213,0,.4)';this.style.transform='translate(-1px,-1px)'"
+         onmouseout="this.style.background='rgba(255,213,0,.13)';this.style.borderColor='rgba(255,213,0,.7)';this.style.boxShadow='0 0 18px rgba(255,213,0,.18),3px 3px 0 rgba(255,213,0,.25)';this.style.transform=''">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 13.5C8 13.5 1.5 9.5 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.2 2.6 8 3.5C8.8 2.6 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9.5 8 13.5 8 13.5Z" stroke="#FFD700" stroke-width="1.6" stroke-linejoin="round" fill="rgba(255,213,0,.3)"/>
         </svg>
-        Ede nou kontinye bati
+        ✦ Ede nou kontinye bati
       </a>
       <div style="font-size:.6rem;color:var(--w3);margin-top:6px;font-family:var(--mono)">payments.cobinar.com</div>
     </div>
@@ -1665,12 +1666,11 @@ function applyLang(code){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(L[k]!==undefined)el.innerHTML=L[k].replace(/\n/g,'<br>');});
   const tx=document.getElementById('prompt'); if(tx) tx.placeholder=L.placeholder;
   const lf=document.getElementById('lang-flag'),lc=document.getElementById('lang-code');
-  if(lf) lf.textContent=L.flag; if(lc) lc.textContent=L.code;
+  if(lf) lf.innerHTML=L.flag; if(lc) lc.textContent=L.code;
   buildCards(); buildLangGrid(); updateSysLang(code);
 }
 function updateSysLang(code){
-  const map={en:'English',ht:'Haitian Creole (Kreyòl Ayisyen)',fr:'French',es:'Spanish',pt:'Portuguese'};
-  history[0]={role:'system',content:`You are Binaris, a high-level expert AI assistant.\nYou ALWAYS respond in ${map[code]||'English'}, with precision, clarity and professional expertise.\nYou are direct, concise and technical when necessary.\nYou format code with markdown.\nYour name is Binaris. Never introduce yourself any other way.\nYour creator is Marc-Arthur Samuel Dalus. If anyone asks who created you or who built you, always answer: Marc-Arthur Samuel Dalus.\nAfter every response, always end by proactively asking the user what they would like to do next. Offer 2-3 specific, relevant follow-up suggestions tailored to the conversation context, formatted as a brief natural question like 'What would you like to do next?' followed by short bullet suggestions.`};
+  history[0]={role:'system',content:buildSysPrompt(code)};
 }
 function buildCards(){
   const grid=document.getElementById('cards-grid'); if(!grid) return;
@@ -1686,7 +1686,8 @@ function buildLangGrid(){
    THEMES — 8 options
 ═════════════════════════════════════════ */
 const THEMES=[
-  {id:'dark',   name:'Dark',     swatch:'#FF0000', border:'rgba(255,255,255,.12)', bar:'#FF0000', bg:'#FF0000', light:false},
+  {id:'dark',   name:'Red',      swatch:'#FF0000', border:'rgba(255,255,255,.12)', bar:'#FF0000', bg:'#FF0000', light:false},
+  {id:'black',  name:'Dark',     swatch:'#000000', border:'rgba(255,255,255,.12)', bar:'#000000', bg:'#000000', light:false},
   {id:'slate',  name:'Slate',    swatch:'#0f1117', border:'rgba(230,237,243,.15)', bar:'#0f1117', bg:'#0f1117', light:false},
   {id:'light',  name:'Light',    swatch:'#ffffff', border:'rgba(0,0,0,.15)',        bar:'#ffffff', bg:'#ffffff', light:true},
   {id:'sepia',  name:'Sepia',    swatch:'#f4efe6', border:'rgba(44,36,22,.15)',     bar:'#f4efe6', bg:'#f4efe6', light:true},
@@ -1957,7 +1958,16 @@ function updateTokBadge(n){
 // Session key — overridden by chat.js after auth resolves to scope per-user
 let _SK='binaris_v4';
 function getSK(){ return window._binarisCurrentSK || _SK; }
-const SYS=`You are Binaris, a high-level expert AI assistant.\nYou ALWAYS respond in English, with precision, clarity and professional expertise.\nYou are direct, concise and technical when necessary.\nYou format code with markdown.\nYour name is Binaris. Never introduce yourself any other way.\nYour creator is Marc-Arthur Samuel Dalus. If anyone asks who created you or who built you, always answer: Marc-Arthur Samuel Dalus.\nAfter every response, always end by proactively asking the user what they would like to do next. Offer 2-3 specific, relevant follow-up suggestions tailored to the conversation context, formatted as a brief natural question like 'What would you like to do next?' followed by short bullet suggestions.`;
+
+/* Build the system prompt for the given language code.
+   This is the single source of truth — used by updateSysLang AND newChat(). */
+function buildSysPrompt(code){
+  const map={en:'English',ht:'Haitian Creole (Kreyòl Ayisyen)',fr:'French',es:'Spanish',pt:'Portuguese'};
+  const lang = map[code] || 'English';
+  return `You are Binaris, a high-level expert AI assistant.\nYou MUST ALWAYS respond exclusively in ${lang}. Do NOT switch to any other language under any circumstances, regardless of what language the user writes in. If the user writes in a different language, still respond only in ${lang}.\nYou are direct, concise and technical when necessary.\nYou format code with markdown.\nYour name is Binaris. Never introduce yourself any other way.\nYour creator is Marc-Arthur Samuel Dalus. If anyone asks who created you or who built you, always answer: Marc-Arthur Samuel Dalus.\nAfter every response, always end by proactively asking the user what they would like to do next. Offer 2-3 specific, relevant follow-up suggestions tailored to the conversation context, formatted as a brief natural question followed by short bullet suggestions.`;
+}
+
+const SYS = buildSysPrompt('ht'); // default; overridden immediately by applyLang() on boot
 let history=[{role:'system',content:SYS}];
 let sessions=[],curSid=null,streaming=false,stopFlag=false,autoTTS=false;
 let pendingFiles=[],totalTokens=0;
@@ -2129,7 +2139,7 @@ async function loadSession(id){
       // that, new messages arrive via the normal send() flow.
       if(!msgsEl.children.length){
         // Build history from Firestore
-        history=[{role:'system',content:SYS},...firestoreMsgs.map(m=>({role:m.role,content:m.content}))];
+        history=[{role:'system',content:buildSysPrompt(curLang)},...firestoreMsgs.map(m=>({role:m.role,content:m.content}))];
         firestoreMsgs.forEach(m=>addMsg(m.role==='user'?'user':'ai',m.content));
         // Cache messages in the session object so local save still works
         s.messages = firestoreMsgs.map(m=>({role:m.role,content:m.content}));
@@ -2137,7 +2147,7 @@ async function loadSession(id){
     }) || null;
   } else {
     // ── Local-only chat: restore from localStorage ──────────────────────────
-    history=[{role:'system',content:SYS},...s.messages];
+    history=[{role:'system',content:buildSysPrompt(curLang)},...s.messages];
     s.messages.forEach(m=>addMsg(m.role==='user'?'user':'ai',m.content));
   }
 }
@@ -2210,7 +2220,7 @@ function renderSB(){
       d.innerHTML=`<div class='hist-chk${chkd?' checked':''}'><svg width='8' height='8' viewBox='0 0 8 8' fill='none'><path d='M1.5 4L3.5 6.5L7 2' stroke='currentColor' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg></div><div class='hist-body'><div class='hist-title'>${esc(s.title)}</div><div class='hist-date'>${fmtD(s.date)}</div></div>`;
       d.onclick=()=>toggleSelectItem(s.id);
     } else {
-      d.innerHTML=`<div class='hist-ico'><svg width='11' height='11' viewBox='0 0 11 11' fill='none'><path d='M1 2c0-.5.4-1 1-1h7c.6 0 1 .5 1 1v5c0 .6-.4 1-1 1H3L1 10V2Z' stroke='currentColor' stroke-width='1.1'/></svg></div><div class='hist-body'><div class='hist-title'>${esc(s.title)}</div><div class='hist-date'>${fmtD(s.date)}</div></div><button class='hist-del' onclick='delSession('${s.id}',event)'>&#x2715;</button>`;
+      d.innerHTML=`<div class='hist-ico'><svg width='11' height='11' viewBox='0 0 11 11' fill='none'><path d='M1 2c0-.5.4-1 1-1h7c.6 0 1 .5 1 1v5c0 .6-.4 1-1 1H3L1 10V2Z' stroke='currentColor' stroke-width='1.1'/></svg></div><div class='hist-body'><div class='hist-title'>${esc(s.title)}</div><div class='hist-date'>${fmtD(s.date)}</div></div><button class='hist-del' onclick="delSession('${s.id}',event)">&#x2715;</button>`;
       d.onclick=e=>{if(e.target.closest('.hist-del'))return;loadSession(s.id);};
     }
     hist.appendChild(d);
@@ -2237,7 +2247,7 @@ function renderDrawerHistory(){
       d.innerHTML=`<div class='hist-chk${chkd?' checked':''}'><svg width='8' height='8' viewBox='0 0 8 8' fill='none'><path d='M1.5 4L3.5 6.5L7 2' stroke='currentColor' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg></div><div class='hist-body'><div class='hist-title'>${esc(s.title)}</div><div class='hist-date'>${fmtD(s.date)}</div></div>`;
       d.onclick=()=>toggleSelectItem(s.id);
     } else {
-      d.innerHTML=`<div class='hist-ico'><svg width='11' height='11' viewBox='0 0 11 11' fill='none'><path d='M1 2c0-.5.4-1 1-1h7c.6 0 1 .5 1 1v5c0 .6-.4 1-1 1H3L1 10V2Z' stroke='currentColor' stroke-width='1.1'/></svg></div><div class='hist-body'><div class='hist-title'>${esc(s.title)}</div><div class='hist-date'>${fmtD(s.date)}</div></div><button class='hist-del' onclick='delSession('${s.id}',event)' style='display:flex'>&#x2715;</button>`;
+      d.innerHTML=`<div class='hist-ico'><svg width='11' height='11' viewBox='0 0 11 11' fill='none'><path d='M1 2c0-.5.4-1 1-1h7c.6 0 1 .5 1 1v5c0 .6-.4 1-1 1H3L1 10V2Z' stroke='currentColor' stroke-width='1.1'/></svg></div><div class='hist-body'><div class='hist-title'>${esc(s.title)}</div><div class='hist-date'>${fmtD(s.date)}</div></div><button class='hist-del' onclick="delSession('${s.id}',event)" style='display:flex'>&#x2715;</button>`;
       d.onclick=e=>{if(e.target.closest('.hist-del'))return;loadSession(s.id);closeDrawer();};
     }
     hist.appendChild(d);
@@ -2278,12 +2288,10 @@ function newChat(){
     const old=curSid; curSid=fsId;
     const s=sessions.find(x=>x.id===old); if(s){ s.id=fsId; saveSessions(); renderSB(); }
   }).catch(()=>{/* offline or not signed in — local-only chat is fine */});
-  history=[{role:'system',content:SYS}];
+  history=[{role:'system',content:buildSysPrompt(curLang)}];
   msgsEl.innerHTML='';msgsEl.style.display='none';emptyEl.style.display='flex';
   pendingFiles=[];renderStrip();promptEl.value='';onTxInput(promptEl);
   $('scroll-btn').classList.remove('visible');renderSB();
-  // Request notif permission on first interaction
-  if (_notifPermission === 'default') requestNotifPermission();
 }
 
 /* SEND / STOP */
@@ -2327,7 +2335,7 @@ async function send(){
   }catch(err){
     if(err.name==='AbortError'||stopFlag){
       const p=bubble.querySelector('.mdbody');
-      if(!p||!p.textContent.trim())bubble.innerHTML`<span style='color:var(--w3);font-size:.82rem;font-style:italic'>Response stopped.</span>`;
+      if(!p||!p.textContent.trim())bubble.innerHTML = `<span style='color:var(--w3);font-size:.82rem;font-style:italic'>Response stopped.</span>`;
       notifyStopped();
     }
     else{bubble.innerHTML='';bubble.appendChild(mkError(err.message));notifyError(err.message);}
@@ -2338,7 +2346,7 @@ async function send(){
 function setupMarked(){
   marked.setOptions({breaks:true,gfm:true});
   const R=new marked.Renderer();
-  R.code=(code,lang)=>{const vl=lang&&hljs.getLanguage(lang)?lang:'';const hi=vl?hljs.highlight(code,{language:vl}).value:hljs.highlightAuto(code).value;const id='c'+Math.random().toString(36).slice(2,8);return `<div class='code-wrap'><div class='code-hdr'><span class='code-lang'>${(lang||'code').toUpperCase()}</span><button class='copy-btn' onclick='cpCode('${id}',this)'><svg width='10' height='10' viewBox='0 0 10 10' fill='none'><rect x='3' y='3' width='6' height='6' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 7V1h6' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy</button></div><pre><code id='${id}' class='hljs'>${hi}</code></pre></div>`;};
+  R.code=(code,lang)=>{const vl=lang&&hljs.getLanguage(lang)?lang:'';const hi=vl?hljs.highlight(code,{language:vl}).value:hljs.highlightAuto(code).value;const id='c'+Math.random().toString(36).slice(2,8);return `<div class='code-wrap'><div class='code-hdr'><span class='code-lang'>${(lang||'code').toUpperCase()}</span><button class='copy-btn' onclick="cpCode('${id}',this)"><svg width='10' height='10' viewBox='0 0 10 10' fill='none'><rect x='3' y='3' width='6' height='6' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 7V1h6' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy</button></div><pre><code id='${id}' class='hljs'>${hi}</code></pre></div>`;};
   marked.use({renderer:R});
 }
 function cpCode(id,btn){navigator.clipboard.writeText($(id)?.innerText||'').then(()=>{btn.classList.add('ok');btn.innerHTML=`<svg width='10' height='10' viewBox='0 0 10 10' fill='none'><path d='M1.5 5L4 7.5L8.5 2' stroke='currentColor' stroke-width='1.35' stroke-linecap='round' stroke-linejoin='round'/></svg> Copied!`;setTimeout(()=>{btn.classList.remove('ok');btn.innerHTML=`<svg width='10' height='10' viewBox='0 0 10 10' fill='none'><rect x='3' y='3' width='6' height='6' rx='1' stroke='currentColor' stroke-width='1.1'/><path d='M1 7V1h6' stroke='currentColor' stroke-width='1.1' stroke-linecap='round'/></svg> Copy`;},2200);});}
@@ -2556,7 +2564,7 @@ function sysNotif({ type = 'info', title, sub = '', icon = `<svg width="14" heig
   const sb  = document.getElementById('sys-notif-sub');
   if (!el) return;
 
-  ico.textContent = icon;
+  ico.innerHTML = icon;
   ico.style.background = type === 'ok'   ? 'rgba(50,213,131,.12)' :
                          type === 'warn' ? 'rgba(255,128,64,.12)'  :
                          type === 'err'  ? 'rgba(255,68,68,.12)'   :
@@ -2788,8 +2796,12 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js', { scope: './' })
       .then(reg => {
-        // Listen for controller change (after skipWaiting)
+        // Guard against repeated reloads — controllerchange can fire more than once
+        // (e.g., on first install AND on subsequent skipWaiting activations).
+        let _swRefreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (_swRefreshing) return;
+          _swRefreshing = true;
           window.location.reload();
         });
 
@@ -2829,9 +2841,11 @@ function showUpdateToast(newWorker) {
     'z-index:500','white-space:nowrap',
     'animation:fu .3s ease both',
   ].join(';');
-  t.innerHTML = `<svg width='13' height='13' viewBox='0 0 13 13' fill='none'><path d='M6.5 1v5M6.5 8v1' stroke='var(--ok)' stroke-width='1.5' stroke-linecap='round'/><circle cx='6.5' cy='6.5' r='5.5' stroke='var(--ok)' stroke-width='1.2'/></svg>New version available<button onclick='newWorker.postMessage({action:'skipWaiting'});this.closest('#update-toast').remove()' style='background:var(--w1);color:var(--bg);border:none;border-radius:var(--r-pill);padding:3px 10px;font-size:.72rem;font-weight:600;cursor:pointer;margin-left:4px'>Update</button><button onclick='this.closest('#update-toast').remove()' style='background:none;border:none;color:var(--w3);cursor:pointer;padding:2px 6px;font-size:.8rem'>✕</button>`;
-  // Capture newWorker reference in button closures
-  t.querySelectorAll('button')[0].onclick = () => { newWorker.postMessage({ action: 'skipWaiting' }); t.remove(); };
+  // Build content without inline onclick (assigned below to avoid nested-quote issues)
+  t.innerHTML = `<svg width='13' height='13' viewBox='0 0 13 13' fill='none'><path d='M6.5 1v5M6.5 8v1' stroke='var(--ok)' stroke-width='1.5' stroke-linecap='round'/><circle cx='6.5' cy='6.5' r='5.5' stroke='var(--ok)' stroke-width='1.2'/></svg>New version available<button id='ut-apply' style='background:var(--w1);color:var(--bg);border:none;border-radius:var(--r-pill);padding:3px 10px;font-size:.72rem;font-weight:600;cursor:pointer;margin-left:4px'>Update</button><button id='ut-dismiss' style='background:none;border:none;color:var(--w3);cursor:pointer;padding:2px 6px;font-size:.8rem'>✕</button>`;
+  // Assign onclick after insertion to safely capture newWorker reference
+  t.querySelector('#ut-apply').onclick = () => { newWorker.postMessage({ action: 'skipWaiting' }); t.remove(); };
+  t.querySelector('#ut-dismiss').onclick = () => t.remove();
   document.body.appendChild(t);
   setTimeout(() => t?.remove(), 12000);
 }
@@ -2899,6 +2913,15 @@ _updatePreviewBar();
 // Splash dismissed by inline script above — this is a legacy no-op
 // Auto-show install panel shortly after splash (if eligible)
 showInstallPanel();
+
+// Request notification permission well after the page is visually ready.
+// Doing this at startup looks like a malicious pop-up — delay until the user
+// has had time to see the app and has been engaging with it (>5s after load).
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    if (_notifPermission === 'default') requestNotifPermission();
+  }, 5000); // 5 s — splash is gone by 1.1 s, gives user ~4 s to see the app first
+}, { once: true });
 
 /* ═════════════════════════════════════════
    SYSTEM NAV BAR — live sync
@@ -3054,7 +3077,7 @@ showInstallPanel();
     <div class='iab-step-num'>2</div>
     <div class='iab-step-text' id='iab-step2'>Select <strong>'Open in browser'</strong> or <strong>'Open in Safari / Chrome'</strong></div>
   </div>
-  <button class='iab-skip' onclick='document.getElementById('iab-banner').style.display='none''>Continue anyway (limited functionality)</button>
+  <button class='iab-skip' onclick="document.getElementById('iab-banner').style.display='none'">Continue anyway (limited functionality)</button>
 </div>
 
 <!-- Auth state manager -->
