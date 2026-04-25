@@ -12,11 +12,14 @@ import {
   addDoc,
   doc,
   updateDoc,
+  deleteDoc,
   query,
   where,
   orderBy,
+  getDocs,
   onSnapshot,
   serverTimestamp,
+  Timestamp,
 } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 // ── Active subscription handles ──────────────────────────────────────────────
@@ -158,6 +161,28 @@ window.binarisChat = {
   subscribeToMessages,
 };
 
+// Exposed separately so index.html's purge routine can call it without waiting
+// for the full binarisChat object pattern
+window._deleteFirestoreOldChats = deleteOldChats;
+
+// ============================
+// 🗑️ PURGE CHATS OLDER THAN cutoffMs
+// Called client-side every Sunday. Firestore TTL handles it server-side too.
+// ============================
+async function deleteOldChats(cutoffMs) {
+  const user = auth.currentUser;
+  if (!user) return;
+  const cutoffTs = Timestamp.fromMillis(cutoffMs);
+  const q = query(
+    collection(db, "chats"),
+    where("userId", "==", user.uid),
+    where("updatedAt", "<", cutoffTs)
+  );
+  const snap = await getDocs(q);
+  const deletes = snap.docs.map(d => deleteDoc(doc(db, "chats", d.id)));
+  await Promise.allSettled(deletes);
+}
+
 // ============================
 // 🧱 CREATE CHAT
 // ============================
@@ -165,11 +190,16 @@ export async function createChat(title = "New Chat") {
   const user = auth.currentUser;
   if (!user) throw new Error("User not authenticated");
 
+  // deleteAt is used by Firestore's native TTL policy to auto-purge after 7 days.
+  // Enable it in Firebase Console → Firestore → TTL policies → collection "chats" → field "deleteAt"
+  const deleteAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // now + 7 days
+
   const ref = await addDoc(collection(db, "chats"), {
     userId:    user.uid,
     title,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
+    deleteAt,  // Firestore TTL — auto-deleted when this timestamp passes
   });
 
   return ref.id;
