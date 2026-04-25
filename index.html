@@ -476,7 +476,7 @@ html{
 .scroll-btn.visible{opacity:1;pointer-events:all;transform:translateY(0)}.scroll-btn:hover{background:var(--s4);border-color:var(--b3);color:var(--w1)}
 
 /* ── EMPTY STATE ─────────────────────────── */
-#empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:72px 24px 190px;text-align:center}
+#empty{display:flex;flex-direction:column;align-items:center;min-height:100%;padding:72px 24px 190px;text-align:center}
 .e-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--r-pill);border:1px solid var(--b2);background:var(--w5);font-family:var(--mono);font-size:.6rem;color:var(--w3);letter-spacing:.1em;margin-bottom:24px;animation:fu .55s ease both}
 .e-dot{width:5px;height:5px;border-radius:50%;background:var(--ok);box-shadow:0 0 4px var(--ok)}
 .e-h{font-family:var(--serif);font-size:clamp(2rem,4.8vw,3.8rem);font-weight:400;font-style:italic;line-height:1.06;letter-spacing:-.02em;color:var(--w1);margin-bottom:12px;animation:fu .55s .07s ease both}
@@ -492,7 +492,7 @@ html{
 .card-ico{font-size:1.1rem;margin-bottom:9px;display:block}.card-t{font-size:.76rem;font-weight:600;color:var(--w1);margin-bottom:3px;line-height:1.3}.card-d{font-size:.67rem;color:var(--w3);line-height:1.5;font-weight:300}
 
 /* ── MESSAGES LIST ───────────────────────── */
-#msgs{display:none;flex-direction:column;max-width:min(100%,860px);margin:0 auto;padding:28px 28px 210px;width:100%;gap:0;box-sizing:border-box}
+#msgs{display:none;flex-direction:column;max-width:100%;margin:0;padding:28px 40px 210px;width:100%;gap:0;box-sizing:border-box}
 .msgs-wrap{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;align-items:stretch;width:100%}
 .msg{display:flex;gap:11px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--b1);animation:fu .28s ease both}
 .msg:last-child{border-bottom:none}.msg.user{flex-direction:row-reverse}
@@ -669,7 +669,7 @@ html{
   .msg.user .m-av{display:none}
   .msg.user{gap:0}
   .msg.user .bubble{max-width:100%;width:auto;float:none;margin-left:auto;font-size:.86rem}
-  #empty{padding:40px 16px calc(200px + var(--mob-nav-h) + var(--safe-bottom))}
+  #empty{padding:40px 16px calc(200px + var(--mob-nav-h) + var(--safe-bottom));overflow-y:visible}
   .bar{border-radius:18px;padding:9px 8px 7px 12px}.bar-tx{font-size:.875rem}
   .act span{display:none}.act{padding:5px 8px}.act-sep,.char-c{display:none}
   .topbar{padding:calc(9px + var(--safe-top)) 14px 9px}
@@ -1211,6 +1211,51 @@ html, body {
   letter-spacing: .04em !important;
 }
 
+/* ══════════════════════════════════════════════════════
+   LIGHT & SEPIA THEME — ensure all text reads in dark ink
+══════════════════════════════════════════════════════ */
+
+/* Welcome / empty state */
+[data-theme="light"] .e-h,
+[data-theme="sepia"] .e-h { color: var(--w1) !important; }
+
+[data-theme="light"] .e-h em,
+[data-theme="sepia"] .e-h em { color: var(--w2) !important; }
+
+[data-theme="light"] .e-p,
+[data-theme="sepia"] .e-p { color: var(--w2) !important; }
+
+[data-theme="light"] .e-by-text,
+[data-theme="sepia"] .e-by-text { color: var(--w3) !important; }
+
+[data-theme="light"] .e-by-text strong,
+[data-theme="sepia"] .e-by-text strong { color: var(--w1) !important; }
+
+[data-theme="light"] .e-badge,
+[data-theme="sepia"] .e-badge { color: var(--w3) !important; border-color: var(--b2) !important; }
+
+/* Prompt suggestion cards */
+[data-theme="light"] .card-t,
+[data-theme="sepia"] .card-t { color: var(--w1) !important; }
+
+[data-theme="light"] .card-d,
+[data-theme="sepia"] .card-d { color: var(--w2) !important; }
+
+/* Settings panel — about box already uses CSS vars now */
+/* Topbar text stays white (red bar) — no override needed */
+
+/* Dock hint */
+[data-theme="light"] .dock-hint,
+[data-theme="sepia"] .dock-hint { color: var(--w3) !important; }
+
+/* Message text */
+[data-theme="light"] .m-txt,
+[data-theme="sepia"] .m-txt { color: var(--w1) !important; }
+
+/* Retention / info notes */
+[data-theme="light"] .p-info,
+[data-theme="sepia"] .p-info { color: var(--w3) !important; }
+
 </style>
 </head>
 <body>
@@ -1502,20 +1547,16 @@ html, body {
         <!-- Subtle glow backdrop -->
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.045) 0%,transparent 70%);pointer-events:none"></div>
         <div style="position:relative">
-          <div style="font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;font-family:var(--mono)"># COBINAR · BINARIS</div>
-          <p style="font-size:.76rem;line-height:1.72;color:rgba(255,255,255,.82);margin:0 0 9px;font-weight:400">
-            <span style="color:#fff;font-weight:600">Binaris</span> is built by
-            <span style="color:#fff;font-weight:600">Cobinar</span> — an independent technology organization founded on
-            <span style="color:rgba(255,255,255,.72)">November 15, 2025</span> by
-            <span style="color:#fff;font-weight:600">Marc-Arthur Samuel Dalus</span>.
+          <div style="font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--w3);margin-bottom:8px;font-family:var(--mono)">COBINAR · BINARIS</div>
+          <p style="font-size:.76rem;line-height:1.72;color:var(--w2);margin:0 0 9px;font-weight:400">
+            <span style="color:var(--w1);font-weight:600">Binaris</span> is built by
+            <span style="color:var(--w1);font-weight:600">Cobinar</span> — an independent technology organization founded on
+            <span style="color:var(--w2)">November 15, 2025</span> by
+            <span style="color:var(--w1);font-weight:600">Marc-Arthur Samuel Dalus</span>.
           </p>
-          <p style="font-size:.74rem;line-height:1.72;color:rgba(255,255,255,.55);margin:0 0 11px">
+          <p style="font-size:.74rem;line-height:1.72;color:var(--w3);margin:0">
             Our mission is to make sophisticated technology feel effortless — turning complex tasks into seamless experiences at the palm of your hand. We are committed to delivering high-quality tools to people around the world.
           </p>
-          <!-- Hex grid accent line -->
-          <div style="display:flex;gap:5px;align-items:center;margin-top:2px">
-            <div style="font-size:.58rem;font-family:var(--mono);color:rgba(255,255,255,.2);letter-spacing:.05em">#C0B1N4R &nbsp;·&nbsp; #B1N4R15 &nbsp;·&nbsp; #M45D4LU5</div>
-          </div>
         </div>
       </div>
     </div>
@@ -1524,16 +1565,16 @@ html, body {
     <div class="p-sec">
       <a href="https://payments.cobinar.com" target="_blank" rel="noopener"
          style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;
-                background:#1a1a1a;
-                border:1px solid rgba(255,255,255,.18);
+                background:var(--s3);
+                border:1px solid var(--b2);
                 border-radius:var(--r-md);
-                color:#fff;
+                color:var(--w1);
                 text-decoration:none;font-size:.8rem;font-weight:700;
                 font-family:var(--font);letter-spacing:.03em;width:100%;box-sizing:border-box;
                 box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
                 transition:background .15s,border-color .15s,box-shadow .15s"
-         onmouseover="this.style.background='#222';this.style.borderColor='rgba(255,255,255,.28)';this.style.boxShadow='inset 0 1px 0 rgba(255,255,255,.12),0 0 14px rgba(50,213,131,.12)'"
-         onmouseout="this.style.background='#1a1a1a';this.style.borderColor='rgba(255,255,255,.18)';this.style.boxShadow='inset 0 1px 0 rgba(255,255,255,.08)'">
+         onmouseover="this.style.background='var(--s4)';this.style.borderColor='var(--b3)';this.style.boxShadow='0 0 14px rgba(50,213,131,.12)'"
+         onmouseout="this.style.background='var(--s3)';this.style.borderColor='var(--b2)';this.style.boxShadow='none'">
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
           <path d="M7.5 12.5C7.5 12.5 1.5 9 1.5 5C1.5 3.1 3 2 4.5 2C5.7 2 6.7 2.6 7.5 3.5C8.3 2.6 9.3 2 10.5 2C12 2 13.5 3.1 13.5 5C13.5 9 7.5 12.5 7.5 12.5Z"
             fill="#32d583" stroke="#32d583" stroke-width="1" stroke-linejoin="round"/>
