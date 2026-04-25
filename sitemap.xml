@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!--
+    Binaris Sitemap — binaris.cc
+    Creator: Marc-Arthur Samuel Dalus / Cobernal Systems
+    Submit to:
+      Google  → https://search.google.com/search-console  (Sitemaps tab)
+      Bing    → https://www.bing.com/webmasters            (Sitemaps tab)
+  -->
+
+  <!-- ═══════════════════════════════════════
+       CORE APP
+  ═══════════════════════════════════════ -->
+
+  <url>
+    <loc>https://binaris.cc/</loc>
+    <lastmod>2025-04-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <!-- Alternate languages supported by the app's built-in switcher -->
+    <xhtml:link rel="alternate" hreflang="ht" href="https://binaris.cc/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://binaris.cc/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://binaris.cc/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://binaris.cc/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://binaris.cc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://binaris.cc/"/>
+    <image:image>
+      <image:loc>https://binaris.cc/icon-1024.png</image:loc>
+      <image:title>Binaris — AI Assistant</image:title>
+      <image:caption>Binaris, the intelligent AI assistant by Marc-Arthur Samuel Dalus</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://binaris.cc/login.html</loc>
+    <lastmod>2025-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://binaris.cc/login.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://binaris.cc/login.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://binaris.cc/login.html"/>
+  </url>
+
+  <!-- ═══════════════════════════════════════
+       LEGAL
+  ═══════════════════════════════════════ -->
+
+  <url>
+    <loc>https://binaris.cc/privacy/</loc>
+    <lastmod>2025-04-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://binaris.cc/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://binaris.cc/privacy/"/>
+  </url>
+
+  <url>
+    <loc>https://binaris.cc/terms/</loc>
+    <lastmod>2025-04-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ht" href="https://binaris.cc/terms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://binaris.cc/terms/"/>
+  </url>
+
+  <!-- ═══════════════════════════════════════
+       PRODUCTS HUB (Cobinar ecosystem)
+  ═══════════════════════════════════════ -->
+
+  <url>
+    <loc>https://binaris.cc/products/</loc>
+    <lastmod>2025-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://binaris.cc/products/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://binaris.cc/products/"/>
+    <image:image>
+      <image:loc>https://binaris.cc/icon-1024.png</image:loc>
+      <image:title>Cobinar Products — Binaris, Cobernal, Hub &amp; Shop</image:title>
+    </image:image>
+  </url>
+
+</urlset>
