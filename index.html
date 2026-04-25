@@ -750,6 +750,19 @@ html{
 .ip-feat-ico{font-size:.9rem;flex-shrink:0}
 .ip-feat-text{font-size:.7rem;color:var(--w2);line-height:1.3}
 
+/* Install panel — desktop: centered floating card instead of bottom sheet */
+@media (min-width:1024px){
+  #install-panel{
+    bottom:24px;left:auto;right:24px;
+    width:360px;border-radius:var(--r-2xl);
+    border:1px solid var(--b2);border-top:1px solid var(--b2);
+    transform:translateY(calc(100% + 40px));
+    box-shadow:0 24px 80px rgba(0,0,0,.6);
+  }
+  #install-panel.show{transform:translateY(0)}
+  .ip-handle{display:none}
+}
+
 /* ═══════════════════════════════════════════
    IN-APP NOTIFICATION PANEL
 ═══════════════════════════════════════════ */
@@ -2942,21 +2955,25 @@ const _INSTALL_KEY = 'binaris_install_ts';
 const _INSTALL_PERM = 'binaris_install_never';
 let _installDismissed = localStorage.getItem(_INSTALL_PERM) === '1';
 
-function _shouldShowInstall() {
-  if (_installDismissed) return false;
-  // Already installed as PWA — don't prompt
+function _shouldShowInstall(force = false) {
+  // Already installed as PWA — never prompt
   if (window.matchMedia('(display-mode: standalone)').matches) return false;
   if (window.navigator.standalone === true) return false; // iOS PWA
+  // Browser is actively offering install → always show regardless of dismissal history
+  if (force) return true;
+  if (_installDismissed) return false;
   const last = parseInt(localStorage.getItem(_INSTALL_KEY) || '0', 10);
   return (Date.now() - last) > 3 * 24 * 60 * 60 * 1000; // 3 days
 }
 
-function showInstallPanel() {
-  if (!_shouldShowInstall()) return;
+function showInstallPanel(force = false) {
+  if (!_shouldShowInstall(force)) return;
   const panel = document.getElementById('install-panel');
   if (!panel) return;
-  localStorage.setItem(_INSTALL_KEY, Date.now().toString());
-  setTimeout(() => panel.classList.add('show'), 2800); // after splash gone
+  // Only stamp timestamp for organic shows, not browser-triggered ones
+  if (!force) localStorage.setItem(_INSTALL_KEY, Date.now().toString());
+  const delay = force ? 1200 : 2800;
+  setTimeout(() => panel.classList.add('show'), delay);
 }
 
 function doInstall() {
@@ -2975,7 +2992,8 @@ function dismissInstall(permanent = false) {
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   _deferredInstall = e;
-  showInstallPanel();
+  // force=true: browser is ready to install, always show panel even if previously dismissed
+  showInstallPanel(true);
 });
 
 window.addEventListener('appinstalled', () => {

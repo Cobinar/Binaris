@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
 <title>Binaris — Konekte</title>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Press+Start+2P&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Press+Start+2P&family=Syne:wght@700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
 
 <!-- In-app browser detection for login page -->
 <script>
@@ -423,12 +423,47 @@ input{-webkit-user-select:text;user-select:text}
 }
 
 
-/* ── PRESS START 2P ── */
+
+/* ── STYLED WORDMARK ── */
 .wordmark {
-  font-family: "Press Start 2P", monospace !important;
-  font-size: .95rem !important;
-  letter-spacing: .1em !important;
+  font-family: "Syne", "Space Grotesk", system-ui, sans-serif !important;
+  font-size: 2.1rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -.02em !important;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.75) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+  text-transform: none !important;
 }
+/* Mobile / tablet overrides */
+.dev-mobile .wordmark { font-size: 1.4rem !important; }
+.dev-tablet .wordmark { font-size: 1.6rem !important; }
+.dev-desktop .left-panel .wordmark { font-size: 3rem !important; }
+
+/* ── CARD SIGN-IN LABEL ── */
+.card-signin-label {
+  font-family: "Instrument Serif", Georgia, serif !important;
+  font-style: italic !important;
+  font-size: .92rem !important;
+  font-weight: 400 !important;
+  letter-spacing: .01em !important;
+  color: var(--w2) !important;
+  text-transform: none !important;
+  margin-bottom: 18px !important;
+}
+
+/* ── TAGLINE DYNAMIC COLOR ── */
+/* Default (red bg): use higher-contrast white */
+.tagline {
+  color: rgba(255,255,255,.82) !important;
+}
+/* Inside the dark card, tone it back down */
+.card .tagline {
+  color: var(--w3) !important;
+}
+
 
 </style>
 </head>
@@ -438,22 +473,22 @@ input{-webkit-user-select:text;user-select:text}
 <div class="bg-layer" aria-hidden="true">
   <div class="v-glow vg1"></div><div class="v-glow vg2"></div><div class="v-glow vg3"></div>
   <svg class="bg-svg" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" fill="none" preserveAspectRatio="xMidYMid slice">
-    <g class="vr1"><circle cx="700" cy="450" r="360" stroke="rgba(255,255,255,.04)" stroke-width="1"/><circle cx="700" cy="450" r="520" stroke="rgba(255,255,255,.025)" stroke-width=".8"/></g>
-    <g class="vr2"><circle cx="700" cy="450" r="440" stroke="rgba(255,255,255,.03)" stroke-width=".8" stroke-dasharray="14 20"/></g>
-    <g class="vr3"><path d="M700,50 A650,650 0 0,1 1350,450" stroke="rgba(255,255,255,.035)" stroke-width="1" stroke-linecap="round"/><path d="M700,850 A650,650 0 0,1 50,450" stroke="rgba(255,255,255,.035)" stroke-width="1" stroke-linecap="round"/></g>
-    <g class="v-breathe"><polygon points="700,210 912,330 912,570 700,690 488,570 488,330" stroke="rgba(255,255,255,.05)" stroke-width="1"/></g>
-    <g class="v-breathe-2"><polygon points="700,130 968,282 968,618 700,770 432,618 432,282" stroke="rgba(255,255,255,.03)" stroke-width=".7"/></g>
-    <line x1="0" y1="225" x2="1400" y2="225" stroke="rgba(255,255,255,.028)" stroke-width=".7"/>
-    <line x1="0" y1="450" x2="1400" y2="450" stroke="rgba(255,255,255,.028)" stroke-width=".7"/>
-    <line x1="0" y1="675" x2="1400" y2="675" stroke="rgba(255,255,255,.028)" stroke-width=".7"/>
-    <line x1="350" y1="0" x2="350" y2="900" stroke="rgba(255,255,255,.028)" stroke-width=".7"/>
-    <line x1="700" y1="0" x2="700" y2="900" stroke="rgba(255,255,255,.028)" stroke-width=".7"/>
-    <line x1="1050" y1="0" x2="1050" y2="900" stroke="rgba(255,255,255,.028)" stroke-width=".7"/>
-    <g class="v-hex" style="animation-duration:38s;transform-origin:100px 100px"><polygon points="100,62 128,78 128,110 100,126 72,110 72,78" stroke="rgba(255,255,255,.08)" stroke-width="1"/></g>
-    <g class="v-hex" style="animation-duration:52s;animation-delay:-17s;transform-origin:1305px 795px"><polygon points="1305,755 1333,771 1333,803 1305,819 1277,803 1277,771" stroke="rgba(255,255,255,.07)" stroke-width="1"/></g>
-    <g class="v-hex" style="animation-duration:44s;animation-delay:-8s;transform-origin:1300px 100px"><polygon points="1300,62 1344,88 1344,140 1300,166 1256,140 1256,88" stroke="rgba(255,255,255,.05)" stroke-width=".8"/></g>
-    <g fill="rgba(255,255,255,.14)"><circle cx="350" cy="225" r="2"/><circle cx="700" cy="225" r="2"/><circle cx="1050" cy="225" r="2"/><circle cx="350" cy="675" r="2"/><circle cx="700" cy="675" r="2"/><circle cx="1050" cy="675" r="2"/></g>
-    <g stroke="rgba(255,255,255,.04)" stroke-width=".7"><line x1="350" y1="225" x2="700" y2="450"/><line x1="700" y1="450" x2="1050" y2="225"/><line x1="350" y1="675" x2="700" y2="450"/><line x1="700" y1="450" x2="1050" y2="675"/></g>
+    <g class="vr1"><circle cx="700" cy="450" r="360" stroke="rgba(255,255,255,.20)" stroke-width="1"/><circle cx="700" cy="450" r="520" stroke="rgba(255,255,255,.12)" stroke-width=".8"/></g>
+    <g class="vr2"><circle cx="700" cy="450" r="440" stroke="rgba(255,255,255,.15)" stroke-width=".8" stroke-dasharray="14 20"/></g>
+    <g class="vr3"><path d="M700,50 A650,650 0 0,1 1350,450" stroke="rgba(255,255,255,.18)" stroke-width="1" stroke-linecap="round"/><path d="M700,850 A650,650 0 0,1 50,450" stroke="rgba(255,255,255,.18)" stroke-width="1" stroke-linecap="round"/></g>
+    <g class="v-breathe"><polygon points="700,210 912,330 912,570 700,690 488,570 488,330" stroke="rgba(255,255,255,.26)" stroke-width="1.2"/></g>
+    <g class="v-breathe-2"><polygon points="700,130 968,282 968,618 700,770 432,618 432,282" stroke="rgba(255,255,255,.14)" stroke-width=".8"/></g>
+    <line x1="0" y1="225" x2="1400" y2="225" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>
+    <line x1="0" y1="450" x2="1400" y2="450" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>
+    <line x1="0" y1="675" x2="1400" y2="675" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>
+    <line x1="350" y1="0" x2="350" y2="900" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>
+    <line x1="700" y1="0" x2="700" y2="900" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>
+    <line x1="1050" y1="0" x2="1050" y2="900" stroke="rgba(255,255,255,.13)" stroke-width=".7"/>
+    <g class="v-hex" style="animation-duration:38s;transform-origin:100px 100px"><polygon points="100,62 128,78 128,110 100,126 72,110 72,78" stroke="rgba(255,255,255,.32)" stroke-width="1.2"/></g>
+    <g class="v-hex" style="animation-duration:52s;animation-delay:-17s;transform-origin:1305px 795px"><polygon points="1305,755 1333,771 1333,803 1305,819 1277,803 1277,771" stroke="rgba(255,255,255,.28)" stroke-width="1.2"/></g>
+    <g class="v-hex" style="animation-duration:44s;animation-delay:-8s;transform-origin:1300px 100px"><polygon points="1300,62 1344,88 1344,140 1300,166 1256,140 1256,88" stroke="rgba(255,255,255,.22)" stroke-width="1"/></g>
+    <g fill="rgba(255,255,255,.50)"><circle cx="350" cy="225" r="2.5"/><circle cx="700" cy="225" r="2.5"/><circle cx="1050" cy="225" r="2.5"/><circle cx="350" cy="675" r="2.5"/><circle cx="700" cy="675" r="2.5"/><circle cx="1050" cy="675" r="2.5"/></g>
+    <g stroke="rgba(255,255,255,.18)" stroke-width=".8"><line x1="350" y1="225" x2="700" y2="450"/><line x1="700" y1="450" x2="1050" y2="225"/><line x1="350" y1="675" x2="700" y2="450"/><line x1="700" y1="450" x2="1050" y2="675"/></g>
   </svg>
 </div>
 <div class="bg-scanlines" aria-hidden="true"></div>

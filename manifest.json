@@ -33,6 +33,21 @@
       "purpose": "any"
     }
   ],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "screenshots/icon-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Binaris AI chat on mobile"
+    },
+    {
+      "src": "screenshots/icon-desktop.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Binaris AI chat on desktop"
+    }
+  ],
   "splash_pages": null
 }
