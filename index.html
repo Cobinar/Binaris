@@ -19,10 +19,55 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Binaris"/>
 <link rel="apple-touch-icon" href="icon-192.png"/>
-<!-- Favicon -->
+<!-- Favicon — .ico is crawler-preferred; contains 16/32/48/64/128/256px layers -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any"/>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png"/>
-<title>Binaris</title>
+<!-- SEO: canonical + full OG/Twitter card so Google/Bing never fall back to the raw domain -->
+<link rel="canonical" href="https://binaris.cc/"/>
+<meta name="description"        content="Binaris is a fast, intelligent AI assistant built by Marc-Arthur Samuel Dalus. Chat in Haitian Creole, English, French and more."/>
+<meta name="author"             content="Marc-Arthur Samuel Dalus"/>
+<meta name="application-name"  content="Binaris"/>
+<meta property="og:type"        content="website"/>
+<meta property="og:site_name"   content="Binaris"/>
+<meta property="og:title"       content="Binaris — AI Assistant"/>
+<meta property="og:description" content="Binaris is a fast, intelligent AI assistant built by Marc-Arthur Samuel Dalus. Chat in Haitian Creole, English, French and more."/>
+<meta property="og:url"         content="https://binaris.cc/"/>
+<meta property="og:image"       content="https://binaris.cc/icon-1024.png"/>
+<meta property="og:image:width" content="1024"/>
+<meta property="og:image:height"content="1024"/>
+<meta name="twitter:card"       content="summary"/>
+<meta name="twitter:site"       content="@Binaris_app"/>
+<meta name="twitter:title"      content="Binaris — AI Assistant"/>
+<meta name="twitter:description"content="Binaris is a fast, intelligent AI assistant built by Marc-Arthur Samuel Dalus. Chat in Haitian Creole, English, French and more."/>
+<meta name="twitter:image"      content="https://binaris.cc/icon-1024.png"/>
+<title>Binaris — AI Assistant</title>
+<!-- Identity guard: re-stamps title + meta after any script or SPA navigation that might overwrite them -->
+<script>
+(function(){
+  'use strict';
+  var T='Binaris \u2014 AI Assistant';
+  var D='Binaris is a fast, intelligent AI assistant built by Marc-Arthur Samuel Dalus. Chat in Haitian Creole, English, French and more.';
+  function stamp(){
+    if(document.title!==T)document.title=T;
+    // Re-stamp only the dynamic ones; static tags above are already in the DOM
+    var og=document.querySelector('meta[property="og:title"]');
+    if(og&&og.content!==T)og.setAttribute('content',T);
+    var tw=document.querySelector('meta[name="twitter:title"]');
+    if(tw&&tw.content!==T)tw.setAttribute('content',T);
+  }
+  // Stamp immediately + after DOMContentLoaded (in case the app JS rewrites document.title)
+  stamp();
+  document.addEventListener('DOMContentLoaded',stamp);
+  // Patch SPA history API so title stays correct on in-app navigation
+  ['pushState','replaceState'].forEach(function(m){
+    var orig=history[m].bind(history);
+    history[m]=function(){orig.apply(history,arguments);stamp();};
+  });
+  window.addEventListener('popstate',stamp);
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Press+Start+2P&display=swap" rel="stylesheet"/>
 <link id="hljs-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
