@@ -2567,12 +2567,44 @@ function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrol
 function scrollBot(){wrapEl.scrollTo({top:wrapEl.scrollHeight,behavior:'smooth'});}
 wrapEl.addEventListener('scroll',()=>{const btn=$('scroll-btn'),at=wrapEl.scrollHeight-wrapEl.scrollTop-wrapEl.clientHeight<80;btn.classList.toggle('visible',!at&&msgsEl.children.length>0);});
 
-/* iOS SCROLL FIX — iOS Safari only scrolls an overflow:auto child if it
-   received the touchstart. Without this passive listener the gesture gets
-   swallowed by child click-targets (cards, text, etc.) and iOS never routes
-   the subsequent touchmove to msgs-wrap. The no-op listener is enough to
-   register wrapEl as the active scroll container for every touch session. */
+/* iOS passive touchstart — forces Safari to register msgs-wrap as scroll target */
 wrapEl.addEventListener('touchstart', function(){}, {passive:true});
+
+/* ANDROID SCROLL FIX
+   Android Chrome sees body{touch-action:manipulation; overflow:hidden} and
+   treats any pan gesture as consumed by body — it never delegates to msgs-wrap.
+   We intercept touch events on #empty and drive wrapEl.scrollTop directly.
+   Using passive:true on all three so we never block frame rendering. */
+(function(){
+  var startY=0, lastY=0, vel=0, rafId=0;
+  var el = document.getElementById('empty');
+
+  el.addEventListener('touchstart', function(e){
+    cancelAnimationFrame(rafId);
+    startY = lastY = e.touches[0].clientY;
+    vel = 0;
+  }, {passive:true});
+
+  el.addEventListener('touchmove', function(e){
+    var y   = e.touches[0].clientY;
+    var dy  = lastY - y;
+    vel     = dy;
+    lastY   = y;
+    wrapEl.scrollTop += dy;
+  }, {passive:true});
+
+  el.addEventListener('touchend', function(){
+    // Momentum: decay velocity so it feels native
+    var v = vel;
+    function step(){
+      if(Math.abs(v) < 0.4) return;
+      wrapEl.scrollTop += v;
+      v *= 0.94;
+      rafId = requestAnimationFrame(step);
+    }
+    rafId = requestAnimationFrame(step);
+  }, {passive:true});
+})();
 function showMsgs(){
   const wasEmpty = msgsEl.style.display !== 'flex';
   emptyEl.style.display='none';msgsEl.style.display='flex';msgsEl.style.flexDirection='column';
