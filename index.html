@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ht">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <!-- VIEWPORT — edge-to-edge, notch + gesture nav bar -->
@@ -11,28 +11,27 @@
 <meta name="theme-color" content="#CC0000" id="theme-color-meta"/>
 <meta name="theme-color" content="#CC0000" media="(prefers-color-scheme:dark)" id="theme-color-dark"/>
 <meta name="theme-color" content="#CC0000" media="(prefers-color-scheme:light)" id="theme-color-light"/>
-<link rel="apple-touch-icon" href="splash.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="icon-192.png"/>
 <link rel="apple-touch-startup-image" href="splash.png"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <!-- iOS — full screen + status bar style -->
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Binaris"/>
-<link rel="apple-touch-icon" href="icon-192.png"/>
-<!-- Favicon — .ico is crawler-preferred; contains 16/32/48/64/128/256px layers -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any"/>
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
+<!-- Favicon — PNG 512 listed first; Google Search picks the largest available PNG -->
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
+<link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any"/>
 <!-- SEO: canonical + full OG/Twitter card so Google/Bing never fall back to the raw domain -->
+<meta name="robots" content="index,follow"/>
 <link rel="canonical" href="https://binaris.cc/"/>
-<meta name="description"        content="Binaris is a fast, intelligent AI assistant built by Marc-Arthur Samuel Dalus. Chat in Haitian Creole, English, French and more."/>
+<meta name="description"        content="Binaris is an AI assistant that lets you build, code, design, and get answers instantly. Chat in English, Haitian Creole, French, Spanish and more — free to use."/>
 <meta name="author"             content="Marc-Arthur Samuel Dalus"/>
 <meta name="application-name"  content="Binaris"/>
 <meta property="og:type"        content="website"/>
 <meta property="og:site_name"   content="Binaris"/>
 <meta property="og:title"       content="Binaris — AI Assistant"/>
-<meta property="og:description" content="Binaris is a fast, intelligent AI assistant built by Marc-Arthur Samuel Dalus. Chat in Haitian Creole, English, French and more."/>
+<meta property="og:description" content="Binaris is an AI assistant that lets you build, code, design, and get answers instantly. Free. Multilingual. Built by Marc-Arthur Samuel Dalus."/>
 <meta property="og:url"         content="https://binaris.cc/"/>
 <meta property="og:image"       content="https://binaris.cc/icon-1024.png"/>
 <meta property="og:image:width" content="1024"/>
@@ -40,9 +39,13 @@
 <meta name="twitter:card"       content="summary"/>
 <meta name="twitter:site"       content="@Binaris_app"/>
 <meta name="twitter:title"      content="Binaris — AI Assistant"/>
-<meta name="twitter:description"content="Binaris is a fast, intelligent AI assistant built by Marc-Arthur Samuel Dalus. Chat in Haitian Creole, English, French and more."/>
+<meta name="twitter:description"content="Build, code, design, and get instant answers with Binaris AI. Free. Multilingual. Built by Marc-Arthur Samuel Dalus."/>
 <meta name="twitter:image"      content="https://binaris.cc/icon-1024.png"/>
 <title>Binaris — AI Assistant</title>
+<!-- Structured data: tells Google exactly what this site is -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Binaris","url":"https://binaris.cc/","description":"Binaris is an AI assistant that helps you build, code, design, and get instant answers. It supports English, Haitian Creole, French, Spanish, and more.","applicationCategory":"ProductivityApplication","operatingSystem":"Web","author":{"@type":"Person","name":"Marc-Arthur Samuel Dalus"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":["en","ht","fr","es","pt"]}
+</script>
 <!-- Identity guard: re-stamps title + meta after any script or SPA navigation that might overwrite them -->
 <script>
 (function(){
@@ -476,7 +479,7 @@ html{
 .scroll-btn.visible{opacity:1;pointer-events:all;transform:translateY(0)}.scroll-btn:hover{background:var(--s4);border-color:var(--b3);color:var(--w1)}
 
 /* ── EMPTY STATE ─────────────────────────── */
-#empty{display:flex;flex-direction:column;align-items:center;min-height:100%;padding:72px 24px 190px;text-align:center}
+#empty{display:flex;flex-direction:column;align-items:center;min-height:100%;padding:72px 24px 190px;text-align:center;touch-action:pan-y}
 .e-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--r-pill);border:1px solid var(--b2);background:var(--w5);font-family:var(--mono);font-size:.6rem;color:var(--w3);letter-spacing:.1em;margin-bottom:24px;animation:fu .55s ease both}
 .e-dot{width:5px;height:5px;border-radius:50%;background:var(--ok);box-shadow:0 0 4px var(--ok)}
 .e-h{font-family:var(--serif);font-size:clamp(2rem,4.8vw,3.8rem);font-weight:400;font-style:italic;line-height:1.06;letter-spacing:-.02em;color:var(--w1);margin-bottom:12px;animation:fu .55s .07s ease both}
@@ -486,8 +489,8 @@ html{
 .e-by-line{width:28px;height:1px;background:var(--b2)}
 .e-by-text{font-family:var(--mono);font-size:.62rem;color:var(--w3);letter-spacing:.08em;white-space:nowrap}.e-by-text strong{color:var(--w2);font-weight:500;letter-spacing:.04em}
 @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:740px;width:100%;animation:fu .55s .2s ease both}
-.card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r-xl);padding:15px 13px;text-align:left;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;max-width:740px;width:100%;animation:fu .55s .2s ease both;touch-action:pan-y}
+.card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r-xl);padding:15px 13px;text-align:left;cursor:pointer;transition:background .15s,border-color .15s,transform .15s;touch-action:pan-y}
 .card:hover{background:var(--s2);border-color:var(--b2);transform:translateY(-2px)}.card:active{transform:translateY(0)}
 .card-ico{font-size:1.1rem;margin-bottom:9px;display:block}.card-t{font-size:.76rem;font-weight:600;color:var(--w1);margin-bottom:3px;line-height:1.3}.card-d{font-size:.67rem;color:var(--w3);line-height:1.5;font-weight:300}
 
@@ -1881,7 +1884,7 @@ const LANGS = {
     ]
   },
 };
-let curLang = localStorage.getItem('binaris_lang') || 'ht';
+let curLang = localStorage.getItem('binaris_lang') || 'en';
 function applyLang(code){
   curLang=code; localStorage.setItem('binaris_lang',code);
   const L=LANGS[code]||LANGS.en;
@@ -2272,7 +2275,7 @@ function buildSysPrompt(code){
   return `You are Binaris, a high-level expert AI assistant.\nYou MUST ALWAYS respond exclusively in ${lang}. Do NOT switch to any other language under any circumstances, regardless of what language the user writes in. If the user writes in a different language, still respond only in ${lang}.\nYou are direct, concise and technical when necessary.\nYou format code with markdown.\nYour name is Binaris. Never introduce yourself any other way.\nYour creator is Marc-Arthur Samuel Dalus. If anyone asks who created you or who built you, always answer: Marc-Arthur Samuel Dalus.\nAfter every response, always end by proactively asking the user what they would like to do next. Offer 2-3 specific, relevant follow-up suggestions tailored to the conversation context, formatted as a brief natural question followed by short bullet suggestions.`;
 }
 
-const SYS = buildSysPrompt('ht'); // default; overridden immediately by applyLang() on boot
+const SYS = buildSysPrompt('en'); // default; overridden immediately by applyLang() on boot
 let history=[{role:'system',content:SYS}];
 let sessions=[],curSid=null,streaming=false,stopFlag=false,autoTTS=false;
 let pendingFiles=[],totalTokens=0;
@@ -2563,6 +2566,13 @@ function renderDrawerHistory(){
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,145)+'px';}
 function scrollBot(){wrapEl.scrollTo({top:wrapEl.scrollHeight,behavior:'smooth'});}
 wrapEl.addEventListener('scroll',()=>{const btn=$('scroll-btn'),at=wrapEl.scrollHeight-wrapEl.scrollTop-wrapEl.clientHeight<80;btn.classList.toggle('visible',!at&&msgsEl.children.length>0);});
+
+/* iOS SCROLL FIX — iOS Safari only scrolls an overflow:auto child if it
+   received the touchstart. Without this passive listener the gesture gets
+   swallowed by child click-targets (cards, text, etc.) and iOS never routes
+   the subsequent touchmove to msgs-wrap. The no-op listener is enough to
+   register wrapEl as the active scroll container for every touch session. */
+wrapEl.addEventListener('touchstart', function(){}, {passive:true});
 function showMsgs(){
   const wasEmpty = msgsEl.style.display !== 'flex';
   emptyEl.style.display='none';msgsEl.style.display='flex';msgsEl.style.flexDirection='column';
@@ -3221,7 +3231,7 @@ function dismissSplash(){
 // Boot sequence
 loadSessions();
 applyTheme(localStorage.getItem('binaris_theme')||'dark');
-applyLang(localStorage.getItem('binaris_lang')||'ht');
+applyLang(localStorage.getItem('binaris_lang')||'en');
 curVoiceChar=localStorage.getItem('binaris_voice_char')||'atlas';
 updateVoiceBadge();
 newChat();
